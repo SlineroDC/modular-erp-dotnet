@@ -1,7 +1,3 @@
-Aquí lo tienes, limpio y sin las citas.
-
----
-
 # .NET ERP Platform
 
 A general ERP platform for business administration, built with .NET (Razor, API, Blazor) and PostgreSQL. (Hypothetical project name: Firmeza).
