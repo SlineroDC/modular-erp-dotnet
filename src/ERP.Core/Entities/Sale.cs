@@ -13,6 +13,6 @@ public sealed class Sale
     public int CustomerId { get; set; } 
     public required Customer Customer { get; set; }
     
-    //Relations which SalesDetails
+    //Relations which ISalesDetails
     public ICollection<SalesDetail> SalesDetails { get; set; } = new List<SalesDetail>();
 }
