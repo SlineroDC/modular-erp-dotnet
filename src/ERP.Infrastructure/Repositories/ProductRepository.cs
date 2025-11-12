@@ -2,7 +2,8 @@ using ERP.Core.Entities;
 using ERP.Core.Interfaces;
 using ERP.Core.Models;
 using Microsoft.EntityFrameworkCore;
-namespace ERP.Data.Repositories;
+
+namespace ERP.Infrastructure.Repositories;
 
 public class ProductRepository (ApplicationDbContext context): IProductRepository
 {
@@ -20,6 +21,7 @@ public class ProductRepository (ApplicationDbContext context): IProductRepositor
             
 
         var items = await context.Products
+            .Where(p => p.IsActive)    
             .OrderBy(p => p.Id)
             .Skip((pageNumber - 1) * pageSize)
             .Take(pageSize)
@@ -56,7 +58,7 @@ public class ProductRepository (ApplicationDbContext context): IProductRepositor
         {
             product.IsActive = false;
 
-            await context.AddRangeAsync();
+            await context.SaveChangesAsync();
         }
     }
 }

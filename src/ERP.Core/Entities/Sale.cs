@@ -13,6 +13,8 @@ public sealed class Sale
     public int CustomerId { get; set; } 
     public required Customer Customer { get; set; }
     
-    //Relations which ISalesDetails
+    //Soft delete
+    public bool IsActive { get; set; } = true;
+    //Relations which ISalesDetailsRepository
     public ICollection<SalesDetail> SalesDetails { get; set; } = new List<SalesDetail>();
 }

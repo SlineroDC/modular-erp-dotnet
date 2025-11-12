@@ -5,7 +5,7 @@ namespace ERP.Core.Interfaces;
 
 public interface ICustomerRepository
 {
-    Task<Customer?> GetByIsAsync(int id);
+    Task<Customer?> GetByIdAsync(int id);
     
     Task<ResponsePage<Customer>> GetAllAsync(int pageNumber, int pageSize);
     
