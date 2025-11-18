@@ -10,14 +10,14 @@ public class SalesRepository(ApplicationDbContext context) : ISalesRepository
     public async Task<Sale?> GetByIdAsync(int id)
     {
         return await context.Sales.FirstOrDefaultAsync(s => s.Id == id && s.IsActive);
-}
+    }
 
     public async Task<ResponsePage<Sale>> GetPaginatedAsync(int pageNumber, int pageSize)
     {
-        var totalCount = await context.Sales    
-            .Where(s => s.IsActive)    
+        var totalCount = await context.Sales
+            .Where(s => s.IsActive)
             .CountAsync();
-            
+
 
         var items = await context.Sales
             .Where(s => s.IsActive)
@@ -39,14 +39,14 @@ public class SalesRepository(ApplicationDbContext context) : ISalesRepository
     public async Task AddAsync(Sale sale)
     {
         await context.Sales.AddAsync(sale);
-        
+
         await context.SaveChangesAsync();
     }
 
     public async Task UpdateAsync(Sale sale)
     {
         context.Sales.Update(sale);
-        
+
         await context.SaveChangesAsync();
     }
 

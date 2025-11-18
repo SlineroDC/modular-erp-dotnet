@@ -1,27 +1,75 @@
 @page
-@model ERP.Admin.Pages.Products
+@model ERP.Admin.Pages.ProductsModel
 
 @{
-    Layout = null;
+    ViewData["Title"] = "Products";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <title></title>
-</head>
-<body>
 <div class="flex flex-col gap-6">
-
     <div>
-        <h2 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white">Product Management</h2>
+        <h2 class="text-3xl font-bold tracking-tight text-white dark:text-black">Product Management</h2>
     </div>
-    <div
-        class="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4">
+
+    <div class="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4">
+        <div class="relative flex-grow sm:flex-grow-0 sm:w-72">
+            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-black dark:text-white">search</span>
+            <input class="h-10 w-full rounded-lg border border-gray-200 dark:border-gray-700 bg-transparent pl-10 pr-4 text-sm focus:ring-constructor-blue focus:border-constructor-blue dark:placeholder-gray-500" placeholder="Search products..." type="text">
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+             <a asp-page="./Create" class="flex h-10 cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-lg bg-constructor-blue px-4 text-sm font-bold text-black dark:text-white hover:bg-opacity-90">
+                <span class="material-symbols-outlined text-xl">add</span>
+                <span class="truncate">Create New</span>
+            </a>
+        </div>
     </div>
+
     <div class="overflow-hidden rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+        <div class="overflow-x-auto">
+            <table class="min-w-full text-sm">
+                <thead class="text-white dark:text-white border-b border-gray-200 dark:border-gray-700 bg-light-mode-bg dark:bg-dark-mode-bg/50">
+                    <tr>
+                        <th class="p-4 text-left font-medium ">Product Name</th>
+                        <th class="p-4 text-left font-medium ">Price</th>
+                        <th class="p-4 text-left font-medium ">Stock</th>
+                        <th class="p-4 text-left font-medium ">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                    @foreach (var product in Model.Data.Items)
+                    {
+                        <tr class="hover:bg-constructor-blue/5">
+                            <td class="p-4 font-medium text-gray-900 dark:text-white">@product.Name</td>
+                            <td class="p-4 text-gray-600 dark:text-gray-400">@product.Price.ToString("C")</td>
+                            <td class="p-4 text-gray-600 dark:text-gray-400">@product.Stock</td>
+                            <td class="p-4">
+                                <div class="flex gap-2">
+                                    <button class="p-2 rounded-lg hover:bg-constructor-blue/10 text-constructor-blue">
+                                        <span class="material-symbols-outlined text-lg">edit</span>
+                                    </button>
+                                    <button class="p-2 rounded-lg hover:bg-red-500/10 text-red-500">
+                                        <span class="material-symbols-outlined text-lg">delete</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="flex items-center justify-between border-t border-gray-200 dark:border-gray-700 p-4 text-sm text-gray-600 dark:text-gray-400">
+            <div>Page @Model.Data.PageNumber of @Model.Data.TotalPages</div>
+            
+            <div class="flex items-center gap-2">
+                @if(Model.Data.PageNumber > 1)
+                {
+                    <a asp-route-pageNumber="@(Model.Data.PageNumber - 1)" class="flex items-center justify-center h-8 px-3 rounded-lg hover:bg-constructor-blue/10 border border-gray-300">Previous</a>
+                }
+                @if(Model.Data.PageNumber < Model.Data.TotalPages)
+                {
+                    <a asp-route-pageNumber="@(Model.Data.PageNumber + 1)" class="flex items-center justify-center h-8 px-3 rounded-lg hover:bg-constructor-blue/10 border border-gray-300">Next</a>
+                }
+            </div>
+        </div>
     </div>
 </div>
-</body>
-</html>
