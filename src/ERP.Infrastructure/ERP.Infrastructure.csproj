@@ -18,4 +18,10 @@
       <ProjectReference Include="..\ERP.Core\ERP.Core.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Reference Include="EPPlus">
+        <HintPath>..\..\..\..\.nuget\packages\epplus\8.2.1\lib\net8.0\EPPlus.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
 </Project>

@@ -14,5 +14,6 @@ public interface ICustomerRepository
     Task UpdateAsync (Customer customer);
     
     Task DeleteAsync (int id);
+    Task<bool> IsDuplicateAsync(string email, string document, int? excludeId = null);
 
 }

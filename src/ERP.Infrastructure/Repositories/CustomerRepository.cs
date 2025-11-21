@@ -61,4 +61,17 @@ public class CustomerRepository(ApplicationDbContext context) : ICustomerReposit
             await context.SaveChangesAsync();
         }
     }
+
+    public async Task<bool> IsDuplicateAsync(string email, string document, int? excludeId = null)
+    {
+        var query = context.Customers.AsQueryable();
+
+        
+        if (excludeId.HasValue)
+        {
+            query = query.Where(c => c.Id != excludeId.Value);
+        }
+
+        return await query.AnyAsync(c => (c.Email == email || c.IdDocument == document) && c.IsActive);
+    }
 }
