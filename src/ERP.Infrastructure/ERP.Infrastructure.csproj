@@ -6,12 +6,14 @@
         <Nullable>enable</Nullable>
         <AssemblyName>ERP.Infrastructure</AssemblyName>
         <RootNamespace>ERP.Infrastructure</RootNamespace>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
 
     <ItemGroup>
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.20" />
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.20" />
+        <PackageReference Include="QuestPDF" Version="2025.7.4" />
     </ItemGroup>
 
     <ItemGroup>
@@ -22,6 +24,12 @@
       <Reference Include="EPPlus">
         <HintPath>..\..\..\..\.nuget\packages\epplus\8.2.1\lib\net8.0\EPPlus.dll</HintPath>
       </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="..\..\.dockerignore">
+        <Link>.dockerignore</Link>
+      </Content>
     </ItemGroup>
 
 </Project>

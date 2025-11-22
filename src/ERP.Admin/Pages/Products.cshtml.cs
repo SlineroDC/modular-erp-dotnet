@@ -32,10 +32,28 @@ public class ProductsModel(IProductRepository productRepository, IExcelService e
     // POST: Import products from Excel
     public async Task<IActionResult> OnPostImportAsync()
     {
-        if (UploadedFile != null && UploadedFile.Length > 0)
+        if (UploadedFile.Length > 0)
         {
             using var stream = UploadedFile.OpenReadStream();
-            await excelService.ImportProductsAsync(stream);
+
+            // Obtenemos la cantidad de productos NUEVOS creados
+            int count = await excelService.ImportProductsAsync(stream);
+
+            // --- LÓGICA DE MENSAJES CON TEMPDATA ---
+            if (count > 0)
+            {
+                // Si se importaron productos
+                TempData["SuccessMessage"] = $"Success! {count} new products imported successfully.";
+            }
+            else
+            {
+                // Si el archivo se leyó pero eran todos duplicados (count == 0)
+                TempData["InfoMessage"] = "No new products were imported. They might be duplicates.";
+            }
+        }
+        else
+        {
+            TempData["ErrorMessage"] = "Please select a valid Excel file.";
         }
 
         return RedirectToPage();

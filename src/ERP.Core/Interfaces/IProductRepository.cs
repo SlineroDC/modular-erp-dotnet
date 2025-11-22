@@ -10,6 +10,7 @@ public interface IProductRepository
     Task AddAsync(Product product);
     Task UpdateAsync(Product product);
     Task DeleteAsync(int id);
+    Task<bool> ExistsByNameAsync(string name);
 
     
 }

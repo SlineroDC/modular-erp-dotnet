@@ -61,4 +61,9 @@ public class ProductRepository (ApplicationDbContext context): IProductRepositor
             await context.SaveChangesAsync();
         }
     }
+    public async Task<bool> ExistsByNameAsync(string name)
+    {
+        return await context.Products.AnyAsync(p => p.Name.ToLower() == name.ToLower() && p.IsActive);
+    }
+    
 }

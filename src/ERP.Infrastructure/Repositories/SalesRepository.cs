@@ -20,6 +20,7 @@ public class SalesRepository(ApplicationDbContext context) : ISalesRepository
 
 
         var items = await context.Sales
+            .Include(s=>s.Customer)
             .Where(s => s.IsActive)
             .OrderBy(c => c.Id)
             .Skip((pageNumber - 1) * pageSize)

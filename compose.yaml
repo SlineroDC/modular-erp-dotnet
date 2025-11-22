@@ -1,0 +1,37 @@
+﻿services:
+  erp.admin:
+    image: erp.admin
+    build:
+      context: .
+      dockerfile: src/ERP.Admin/Dockerfile
+
+  erp.admin.tests:
+    image: erp.admin.tests
+    build:
+      context: .
+      dockerfile: tests/ERP.Admin.Tests/Dockerfile
+
+  erp.api:
+    image: erp.api
+    build:
+      context: .
+      dockerfile: ERP.Api/Dockerfile
+
+  erp.api.tests:
+    image: erp.api.tests
+    build:
+      context: .
+      dockerfile: tests/ERP.Api.Tests/Dockerfile
+
+  erp.core:
+    image: erp.core
+    build:
+      context: .
+      dockerfile: src/ERP.Core/Dockerfile
+
+  erp.infrastructure:
+    image: erp.infrastructure
+    build:
+      context: .
+      dockerfile: src/ERP.Infrastructure/Dockerfile
+

@@ -10,12 +10,12 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("ERP.Admin.Tests")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("ERP.Api.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a17b21657bac276ce7997902f017d52917e135ff")]
-[assembly: System.Reflection.AssemblyProductAttribute("ERP.Admin.Tests")]
-[assembly: System.Reflection.AssemblyTitleAttribute("ERP.Admin.Tests")]
+[assembly: System.Reflection.AssemblyProductAttribute("ERP.Api.Tests")]
+[assembly: System.Reflection.AssemblyTitleAttribute("ERP.Api.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 
 // Generado por la clase WriteCodeFragment de MSBuild.
