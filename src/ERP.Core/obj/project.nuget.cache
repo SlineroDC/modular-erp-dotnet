@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "ZsMsKswaMHg=",
+  "success": true,
+  "projectFilePath": "/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Core/ERP.Core.csproj",
+  "expectedPackageFiles": [
+    "/home/Coder/.nuget/packages/microsoft.netcore.app.ref/8.0.22/microsoft.netcore.app.ref.8.0.22.nupkg.sha512",
+    "/home/Coder/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.22/microsoft.aspnetcore.app.ref.8.0.22.nupkg.sha512"
+  ],
+  "logs": []
+}

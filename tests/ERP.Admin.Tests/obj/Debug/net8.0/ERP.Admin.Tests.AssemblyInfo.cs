@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ERP.Admin.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a17b21657bac276ce7997902f017d52917e135ff")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+112887e4e33df7a1bd7b4f7912ca79f084f70542")]
 [assembly: System.Reflection.AssemblyProductAttribute("ERP.Admin.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ERP.Admin.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

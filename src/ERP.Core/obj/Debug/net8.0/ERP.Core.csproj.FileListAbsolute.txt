@@ -1,0 +1,12 @@
+/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Core/bin/Debug/net8.0/ERP.Core.deps.json
+/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Core/bin/Debug/net8.0/ERP.Core.dll
+/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Core/bin/Debug/net8.0/ERP.Core.pdb
+/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Core/obj/Debug/net8.0/ERP.Core.GeneratedMSBuildEditorConfig.editorconfig
+/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Core/obj/Debug/net8.0/ERP.Core.AssemblyInfoInputs.cache
+/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Core/obj/Debug/net8.0/ERP.Core.AssemblyInfo.cs
+/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Core/obj/Debug/net8.0/ERP.Core.csproj.CoreCompileInputs.cache
+/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Core/obj/Debug/net8.0/ERP.Core.sourcelink.json
+/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Core/obj/Debug/net8.0/ERP.Core.dll
+/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Core/obj/Debug/net8.0/refint/ERP.Core.dll
+/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Core/obj/Debug/net8.0/ERP.Core.pdb
+/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Core/obj/Debug/net8.0/ref/ERP.Core.dll

@@ -1,0 +1,59 @@
+@model ERP.Core.Entities.Product
+
+<div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+
+    <div class="sm:col-span-2">
+        <label asp-for="Name" class="flex flex-col group">
+            <p class="pb-2 text-sm font-medium text-gray-500 dark:text-gray-400 group-focus-within:text-constructor-blue transition-colors">
+                Product Name</p>
+
+            <input asp-for="Name"
+                   class="form-input h-12 w-full flex-1 rounded-lg border border-gray-200 bg-gray-50 p-3 text-base text-gray-900 placeholder-gray-400 
+                                              focus:border-constructor-blue focus:ring-constructor-blue 
+                                              dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:placeholder-gray-500 dark:focus:border-constructor-blue transition-colors"
+                   placeholder="e.g., Industrial Drill"/>
+            <span asp-validation-for="Name" class="text-red-500 text-xs mt-1"></span>
+        </label>
+    </div>
+
+    <div>
+        <label asp-for="Price" class="flex flex-col group">
+            <p class="pb-2 text-sm font-medium text-gray-500 dark:text-gray-400 group-focus-within:text-constructor-blue transition-colors">
+                Price ($)</p>
+            <input asp-for="Price" type="number" step="0.01"
+                   class="form-input h-12 w-full flex-1 rounded-lg border border-gray-200 bg-gray-50 p-3 text-base text-gray-900 placeholder-gray-400 
+                                              focus:border-constructor-blue focus:ring-constructor-blue 
+                                              dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:placeholder-gray-500 dark:focus:border-constructor-blue transition-colors"
+                   placeholder="0.00"/>
+            <span asp-validation-for="Price" class="text-red-500 text-xs mt-1"></span>
+        </label>
+    </div>
+
+    <div>
+        <label asp-for="Stock" class="flex flex-col group">
+            <p class="pb-2 text-sm font-medium text-gray-500 dark:text-gray-400 group-focus-within:text-constructor-blue transition-colors">
+                Stock Quantity</p>
+            <input asp-for="Stock" type="number"
+                   class="form-input h-12 w-full flex-1 rounded-lg border border-gray-200 bg-gray-50 p-3 text-base text-gray-900 placeholder-gray-400 
+                                              focus:border-constructor-blue focus:ring-constructor-blue 
+                                              dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:placeholder-gray-500 dark:focus:border-constructor-blue transition-colors"
+                   placeholder="0"/>
+            <span asp-validation-for="Stock" class="text-red-500 text-xs mt-1"></span>
+        </label>
+    </div>
+
+    <div class="sm:col-span-2">
+        <label asp-for="Description" class="flex flex-col group">
+            <p class="pb-2 text-sm font-medium text-gray-500 dark:text-gray-400 group-focus-within:text-constructor-blue transition-colors">
+                Product Description</p>
+            <textarea asp-for="Description"
+                      class="form-textarea min-h-32 w-full flex-1 resize-y rounded-lg border border-gray-200 bg-gray-50 p-3 text-base text-gray-900 placeholder-gray-400 
+                                                 focus:border-constructor-blue focus:ring-constructor-blue 
+                                                 dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:placeholder-gray-500 dark:focus:border-constructor-blue transition-colors"
+                      placeholder="Describe the product details..."></textarea>
+            <span asp-validation-for="Description" class="text-red-500 text-xs mt-1"></span>
+        </label>
+    </div>
+
+</div>
+

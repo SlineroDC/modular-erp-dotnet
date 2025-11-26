@@ -1,0 +1,72 @@
+@model ERP.Core.Entities.Customer
+
+<div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+
+    <div>
+        <label asp-for="Name" class="flex flex-col group">
+            <p class="pb-2 text-sm font-medium text-gray-500 dark:text-gray-400 group-focus-within:text-constructor-blue transition-colors">
+                First Name</p>
+            <input asp-for="Name"
+                   class="form-input h-12 w-full flex-1 rounded-lg border border-gray-200 bg-gray-50 p-3 text-base text-gray-900 placeholder-gray-400 focus:border-constructor-blue focus:ring-constructor-blue dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:placeholder-gray-500 dark:focus:border-constructor-blue transition-colors"
+                   placeholder="John"/>
+            <span asp-validation-for="Name" class="text-red-500 text-xs mt-1"></span>
+        </label>
+    </div>
+
+    <div>
+        <label asp-for="LastName" class="flex flex-col group">
+            <p class="pb-2 text-sm font-medium text-gray-500 dark:text-gray-400 group-focus-within:text-constructor-blue transition-colors">
+                Last Name</p>
+            <input asp-for="LastName"
+                   class="form-input h-12 w-full flex-1 rounded-lg border border-gray-200 bg-gray-50 p-3 text-base text-gray-900 placeholder-gray-400 focus:border-constructor-blue focus:ring-constructor-blue dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:placeholder-gray-500 dark:focus:border-constructor-blue transition-colors"
+                   placeholder="Doe"/>
+            <span asp-validation-for="LastName" class="text-red-500 text-xs mt-1"></span>
+        </label>
+    </div>
+
+    <div>
+        <label asp-for="IdDocument" class="flex flex-col group">
+            <p class="pb-2 text-sm font-medium text-gray-500 dark:text-gray-400 group-focus-within:text-constructor-blue transition-colors">
+                Document ID</p>
+            <input asp-for="IdDocument"
+                   class="form-input h-12 w-full flex-1 rounded-lg border border-gray-200 bg-gray-50 p-3 text-base text-gray-900 placeholder-gray-400 focus:border-constructor-blue focus:ring-constructor-blue dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:placeholder-gray-500 dark:focus:border-constructor-blue transition-colors"
+                   placeholder="123456789"/>
+            <span asp-validation-for="IdDocument" class="text-red-500 text-xs mt-1"></span>
+        </label>
+    </div>
+
+    <div>
+        <label asp-for="Phone" class="flex flex-col group">
+            <p class="pb-2 text-sm font-medium text-gray-500 dark:text-gray-400 group-focus-within:text-constructor-blue transition-colors">
+                Phone</p>
+            <input asp-for="Phone"
+                   class="form-input h-12 w-full flex-1 rounded-lg border border-gray-200 bg-gray-50 p-3 text-base text-gray-900 placeholder-gray-400 focus:border-constructor-blue focus:ring-constructor-blue dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:placeholder-gray-500 dark:focus:border-constructor-blue transition-colors"
+                   placeholder="+1 234 567 890"/>
+            <span asp-validation-for="Phone" class="text-red-500 text-xs mt-1"></span>
+        </label>
+    </div>
+    <div class="sm:col-span-2">
+        <label asp-for="Address" class="flex flex-col group">
+            <p class="pb-2 text-sm font-medium text-gray-500 dark:text-gray-400 group-focus-within:text-constructor-blue transition-colors">
+                Address</p>
+            <input asp-for="Address"
+                   class="form-input h-12 w-full flex-1 rounded-lg border border-gray-200 bg-gray-50 p-3 text-base text-gray-900 placeholder-gray-400 
+                          focus:border-constructor-blue focus:ring-constructor-blue 
+                          dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:placeholder-gray-500 dark:focus:border-constructor-blue transition-colors"
+                   placeholder="123 Main St, City"/>
+            <span asp-validation-for="Address" class="text-red-500 text-xs mt-1"></span>
+        </label>
+    </div>
+
+    <div class="sm:col-span-2">
+        <label asp-for="Email" class="flex flex-col group">
+            <p class="pb-2 text-sm font-medium text-gray-500 dark:text-gray-400 group-focus-within:text-constructor-blue transition-colors">
+                Email Address</p>
+            <input asp-for="Email" type="email"
+                   class="form-input h-12 w-full flex-1 rounded-lg border border-gray-200 bg-gray-50 p-3 text-base text-gray-900 placeholder-gray-400 focus:border-constructor-blue focus:ring-constructor-blue dark:border-gray-600 dark:bg-gray-900 dark:text-white dark:placeholder-gray-500 dark:focus:border-constructor-blue transition-colors"
+                   placeholder="john.doe@example.com"/>
+            <span asp-validation-for="Email" class="text-red-500 text-xs mt-1"></span>
+        </label>
+    </div>
+
+</div>

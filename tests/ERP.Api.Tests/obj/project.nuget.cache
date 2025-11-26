@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "fqez3QaHBfM=",
+  "dgSpecHash": "f5kUJnEUmCc=",
   "success": true,
   "projectFilePath": "/home/Coder/RiderProjects/modular-erp-dotnet/tests/ERP.Api.Tests/ERP.Api.Tests.csproj",
   "expectedPackageFiles": [
@@ -16,7 +16,9 @@
     "/home/Coder/.nuget/packages/nunit/3.14.0/nunit.3.14.0.nupkg.sha512",
     "/home/Coder/.nuget/packages/nunit.analyzers/3.9.0/nunit.analyzers.3.9.0.nupkg.sha512",
     "/home/Coder/.nuget/packages/nunit3testadapter/4.5.0/nunit3testadapter.4.5.0.nupkg.sha512",
-    "/home/Coder/.nuget/packages/system.reflection.metadata/1.6.0/system.reflection.metadata.1.6.0.nupkg.sha512"
+    "/home/Coder/.nuget/packages/system.reflection.metadata/1.6.0/system.reflection.metadata.1.6.0.nupkg.sha512",
+    "/home/Coder/.nuget/packages/microsoft.netcore.app.ref/8.0.22/microsoft.netcore.app.ref.8.0.22.nupkg.sha512",
+    "/home/Coder/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.22/microsoft.aspnetcore.app.ref.8.0.22.nupkg.sha512"
   ],
   "logs": []
 }
