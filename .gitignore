@@ -1,2 +1,45 @@
+## Ignorar carpetas de compilación y salida ##
+[Bb]in/
+[Oo]bj/
+dist/
+out/
+TestResults/
 
+## Visual Studio ##
+.vs/
+*.user
+*.userosscache
+*.sln.docstates
+*.suo
+*.cache
+*.xml (¡Cuidado! Solo si son generados, a veces se necesitan)
+
+## Visual Studio Code ##
+.vscode/
+!/.vscode/settings.json
+!/.vscode/tasks.json
+!/.vscode/launch.json
+!/.vscode/extensions.json
+
+## JetBrains Rider ##
+.idea/
+*.sln.iml
+
+## Archivos de usuario y secretos (IMPORTANTE) ##
+appsettings.Development.json
+appsettings.local.json
+secrets.json
+.env
+
+## NuGet ##
+*.nupkg
+*.snupkg
+**/packages/*
+!**/packages/build/
+project.lock.json
+project.fragment.lock.json
+
+## Archivos del Sistema Operativo ##
+.DS_Store
+Thumbs.db
 node_modules
