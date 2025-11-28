@@ -1,26 +1,37 @@
-﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
-<ul class="navbar-nav">
+<ul class="flex items-center gap-4 list-none m-0 p-0">
     @if (SignInManager.IsSignedIn(User))
     {
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
+        <li>
+            <a asp-page="/Settings" 
+               class="text-sm font-medium text-gray-700 hover:text-[#003366] dark:text-gray-300 dark:hover:text-white transition-colors" 
+               title="Manage">
+                Hello, <span class="font-bold">@User.Identity?.Name</span>!
+            </a>
         </li>
-        <li class="nav-item">
-            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })">
-                <button type="submit" class="nav-link btn btn-link text-dark  dark:text-white">Logout</button>
+        <li>
+            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/Index", new { area = "" })" method="post">
+    
+                @Html.AntiForgeryToken()
+    
+                <button type="submit" 
+                        class="text-sm font-bold text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300 transition-colors flex items-center gap-1">
+                    <span class="material-symbols-outlined text-lg">logout</span>
+                    Logout
+                </button>
             </form>
         </li>
     }
     else
     {
-        <li class="nav-item">
-            <a class="nav-link text-dark dark:text-white" asp-area="Identity" asp-page="/Account/Register">Register</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark  dark:text-white" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        <li>
+            <a class="text-sm font-bold text-[#003366] hover:underline dark:text-blue-400 dark:hover:text-blue-300 transition-colors" 
+               asp-area="Identity" asp-page="/Account/Login">
+                Login
+            </a>
         </li>
     }
 </ul>

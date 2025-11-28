@@ -11,6 +11,6 @@ public class SalesDetail
     public int SalesId { get; set; }
     public int ProductId {get; set;}
     
-    public virtual Product Product { get; set; } 
-    public virtual Sale Sale { get; set; }
+    public virtual Product? Product { get; set; } 
+    public virtual Sale? Sale { get; set; }
 }

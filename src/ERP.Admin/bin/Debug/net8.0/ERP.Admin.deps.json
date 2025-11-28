@@ -775,6 +775,7 @@
       },
       "ERP.Infrastructure/1.0.0": {
         "dependencies": {
+          "EPPlus": "8.2.1",
           "ERP.Core": "1.0.0",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.20",
           "Microsoft.EntityFrameworkCore": "8.0.20",

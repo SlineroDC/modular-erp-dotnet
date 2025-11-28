@@ -2,7 +2,7 @@ using System.Collections;
 
 namespace ERP.Core.Entities;
 
-public sealed class Sale
+public class Sale
 {
     //Properties
     public int Id { get; set; } 
@@ -11,7 +11,7 @@ public sealed class Sale
 
     //Foreign key
     public int CustomerId { get; set; } 
-    public required Customer Customer { get; set; }
+    public virtual Customer? Customer { get; set; }
     
     //Soft delete
     public bool IsActive { get; set; } = true;

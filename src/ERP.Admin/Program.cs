@@ -44,6 +44,39 @@ builder.Services.AddRazorPages();
 // --- 3. Build the App and Configure the HTTP Pipeline ---
 var app = builder.Build();
 
+//Auto migration for docker
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<ApplicationDbContext>();
+        var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
+        context.Database.Migrate();
+        Console.WriteLine("Database migrated successfully.");
+
+        var adminEmail = "admin@firmeza.com";
+        var adminUser = await userManager.FindByEmailAsync(adminEmail);
+
+        if (adminUser == null)
+        {
+            adminUser = new IdentityUser { UserName = adminEmail, Email = adminEmail, EmailConfirmed = true };
+            // ¡Esta será tu contraseña maestra!
+            var result = await userManager.CreateAsync(adminUser, "Admin123!");
+
+            if (result.Succeeded) Console.WriteLine("✅ Usuario Admin creado: admin@firmeza.com / Admin123!");
+            else
+                Console.WriteLine("Error creando Admin: " +
+                                  string.Join(", ", result.Errors.Select(e => e.Description)));
+        }
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error to migrate databases: {ex.Message}");
+        throw;
+    }
+}
+
 // Configure the HTTP request pipeline.
 // Show detailed error pages only when in Development.
 if (app.Environment.IsDevelopment())
@@ -57,7 +90,24 @@ else
     app.UseHsts(); // Enforce HTTPS.
 }
 
-app.UseHttpsRedirection();
+app.MapGet("/", async context =>
+{
+        // Si ya está logueado, va al Dashboard (Index)
+        if (context.User.Identity?.IsAuthenticated == true)
+        {
+            context.Response.Redirect("/Index");
+        }
+        else
+        {
+            // Si no, va al Login
+            context.Response.Redirect("/Identity/Account/Login");
+        }
+        await Task.CompletedTask;
+    
+});
+
+
+//app.UseHttpsRedirection();
 app.UseStaticFiles(); // Enable serving static files (CSS, JS, images) from the wwwroot folder.
 app.UseRouting();
 app.UseAuthorization(); // Enable authorization checks (must be after UseRouting).

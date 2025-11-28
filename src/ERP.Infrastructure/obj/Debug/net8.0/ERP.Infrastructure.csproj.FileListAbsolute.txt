@@ -14,8 +14,6 @@
 /home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Infrastructure/obj/Debug/net8.0/refint/ERP.Infrastructure.dll
 /home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Infrastructure/obj/Debug/net8.0/ERP.Infrastructure.pdb
 /home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Infrastructure/obj/Debug/net8.0/ref/ERP.Infrastructure.dll
-/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Infrastructure/bin/Debug/net8.0/EPPlus.dll
-/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Infrastructure/bin/Debug/net8.0/EPPlus.xml
 /home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Infrastructure/bin/Debug/net8.0/LatoFont/Lato-Black.ttf
 /home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Infrastructure/bin/Debug/net8.0/LatoFont/Lato-BlackItalic.ttf
 /home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Infrastructure/bin/Debug/net8.0/LatoFont/Lato-Bold.ttf

@@ -1,0 +1,56 @@
+@page
+@model Microsoft.AspNetCore.Identity.UI.V4.Pages.Account.Internal.LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+    Layout = "/Pages/Shared/_Layout.cshtml";
+}
+
+<div class="p-8">
+    <div class="text-center mb-8">
+         <img src="~/img/logo1.png" alt="Logo" class="h-12 w-auto mx-auto mb-4 object-contain">
+         <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Welcome Back</h1>
+         <p class="text-sm text-gray-500 dark:text-gray-400 mt-2">Sign in to your account</p>
+    </div>
+    
+    <form id="account" method="post" class="flex flex-col gap-6">
+        @Html.AntiForgeryToken()
+        <div asp-validation-summary="ModelOnly" class="text-red-500 text-sm text-center font-medium"></div>
+
+        <div>
+            <label asp-for="Input.Email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email Address</label>
+            <input asp-for="Input.Email"
+                   class="block w-full h-12 rounded-lg border border-gray-300 bg-gray-50 px-4 text-gray-900 placeholder-gray-400 focus:border-[#003366] focus:ring-[#003366] 
+                          dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 transition-colors"
+                   placeholder="admin@firmeza.com" autocomplete="username" aria-required="true"/>
+            <span asp-validation-for="Input.Email" class="text-red-500 text-xs mt-1 block"></span>
+        </div>
+
+        <div>
+            <label asp-for="Input.Password" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Password</label>
+            <input asp-for="Input.Password"
+                   class="block w-full h-12 rounded-lg border border-gray-300 bg-gray-50 px-4 text-gray-900 placeholder-gray-400 focus:border-[#003366] focus:ring-[#003366] 
+                          dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500 transition-colors"
+                   placeholder="••••••••" autocomplete="current-password" aria-required="true"/>
+            <span asp-validation-for="Input.Password" class="text-red-500 text-xs mt-1 block"></span>
+        </div>
+
+        <div class="flex items-center justify-between">
+            <div class="flex items-center h-5">
+                <input asp-for="Input.RememberMe"
+                       class="h-4 w-4 rounded border-gray-300 text-[#003366] focus:ring-[#003366] dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800"/>
+                <label asp-for="Input.RememberMe" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Remember me</label>
+            </div>
+        </div>
+
+        <button type="submit"
+                class="w-full h-12 rounded-lg bg-[#003366] text-base font-bold text-white shadow-md hover:opacity-90 focus:outline-none focus:ring-4 focus:ring-blue-300 
+                       dark:bg-white dark:text-[#003366] transition-all">
+            Sign in
+        </button>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

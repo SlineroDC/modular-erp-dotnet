@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ERP.Api.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+112887e4e33df7a1bd7b4f7912ca79f084f70542")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+444567bb297d8f71f9b4591845888c7f87b13751")]
 [assembly: System.Reflection.AssemblyProductAttribute("ERP.Api.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ERP.Api.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

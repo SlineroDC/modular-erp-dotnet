@@ -4,88 +4,104 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] - ERP.Admin</title>
-    
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/ERP.Admin.styles.css" asp-append-version="true"/>
 </head>
-<body class="font-display bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
-    
-    <div class="relative flex min-h-screen w-full">
-        
-        <aside class="flex h-screen w-64 flex-col justify-between border-r border-gray-200 bg-white p-4 sticky top-0 
+<body class="font-display bg-gray-400 text-gray-900 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
+
+<div class="relative flex min-h-screen w-full">
+
+    <aside class="flex h-screen w-64 flex-col justify-between border-r border-gray-200 bg-white p-4 sticky top-0 
                       dark:bg-gray-800 dark:border-gray-700 transition-colors duration-300">
-            <div class="flex flex-col gap-8">
-                <div class="flex items-center gap-3 px-3">
-                    <img src="~/img/logo1.png" alt="Logo ERP System" class="size-8"/>
-                    <h1 class="text-xl font-bold text-gray-900 dark:text-white">ERP System</h1>
-                </div>
-                
+        <div class="flex flex-col gap-8">
+            <div class="flex items-center gap-3 px-3">
+                <img src="~/img/logo1.png" alt="Logo ERP System" class="size-8"/>
+                <h1 class="text-xl font-bold text-gray-900 dark:text-white">ERP System</h1>
+            </div>
+            @if (User.Identity?.IsAuthenticated == true)
+            {
                 <nav class="flex flex-col gap-2">
-                    <a class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 transition-colors" asp-page="/Index">
+                    <a class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 transition-colors"
+                       asp-page="/Index">
                         <span class="material-symbols-outlined text-2xl">dashboard</span>
                         <p class="text-sm font-medium">Dashboard</p>
                     </a>
-                    
+
                     <a class="flex items-center gap-3 rounded-lg bg-constructor-blue/10 px-3 py-2 text-constructor-blue 
-                              dark:bg-blue-900/30 dark:text-blue-200" asp-page="/Products">
+                                  dark:bg-blue-900/30 dark:text-blue-200" asp-page="/Products">
                         <span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
                         <p class="text-sm font-medium">Products</p>
                     </a>
-                    
-                    <a class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 transition-colors" asp-page="/Sales">
+
+                    <a class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 transition-colors"
+                       asp-page="/Sales">
                         <span class="material-symbols-outlined text-2xl">shopping_cart</span>
                         <p class="text-sm font-medium">Orders</p>
                     </a>
-                    <a class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 transition-colors" asp-page="/Customers">
+                    <a class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 transition-colors"
+                       asp-page="/Customers">
                         <span class="material-symbols-outlined text-2xl">group</span>
                         <p class="text-sm font-medium">Customers</p>
                     </a>
                 </nav>
-            </div>
-            
-            <div class="flex flex-col gap-1">
-                <a class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 transition-colors" href="#">
-                    <span class="material-symbols-outlined text-2xl">settings</span>
-                    <p class="text-sm font-medium">Settings</p>
-                </a>
-            </div>
-        </aside>
-        
-        <div class="flex-1 flex flex-col">
-            <header class="flex items-center justify-end whitespace-nowrap border-b border-gray-200 bg-white px-10 py-3 sticky top-0 z-10 
-                           dark:bg-gray-800 dark:border-gray-700 transition-colors duration-300">
-                <div class="flex items-center gap-4">
-                    
-                    <button class="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-gray-500 hover:bg-gray-100 
-                                   dark:text-gray-400 dark:hover:bg-gray-700 transition-colors">
-                        <span class="material-symbols-outlined">notifications</span>
-                    </button>
-
-                    <button id="theme-toggle" class="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-gray-500 hover:bg-gray-100 
-                                   dark:text-yellow-400 dark:hover:bg-gray-700 transition-colors" title="Toggle Dark Mode">
-                        <span class="material-symbols-outlined dark:hidden">dark_mode</span> <span class="material-symbols-outlined hidden dark:block">light_mode</span> </button>
-
-                    <partial name="_LoginPartial"/>
+            }
+            else
+            {
+                <div class="px-3 text-sm text-gray-500 dark:text-gray-400">
+                    Please log in to access the menu.
                 </div>
-            </header>
-            
-            <main class="flex-1 p-8">
-                <partial name="_StatusMessages" /> 
-                @RenderBody()
-            </main>
-            
-            <footer class="p-8 pt-4">
-                <div class="border-t border-gray-200 dark:border-gray-700 pt-4 text-center text-sm text-gray-500 dark:text-gray-400">
-                    <p>© 2025 ERP.Admin Sebastian Linero - <a asp-area="" asp-page="/Privacy" class="hover:underline">Privacy</a></p>
-                </div>
-            </footer>
+            }
         </div>
+
+        <div class="flex flex-col gap-1">
+            <a class="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 transition-colors"
+               href="#">
+                <span class="material-symbols-outlined text-2xl">settings</span>
+                <p class="text-sm font-medium">Settings</p>
+            </a>
+        </div>
+    </aside>
+
+    <div class="flex-1 flex flex-col">
+        <header class="flex items-center justify-end whitespace-nowrap border-b border-gray-200 bg-white px-10 py-3 sticky top-0 z-10 
+                           dark:bg-gray-800 dark:border-gray-700 transition-colors duration-300">
+            <div class="flex items-center gap-4">
+
+                <button class="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-gray-500 hover:bg-gray-100 
+                                   dark:text-gray-400 dark:hover:bg-gray-700 transition-colors">
+                    <span class="material-symbols-outlined">notifications</span>
+                </button>
+
+                <button id="theme-toggle" class="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full text-gray-500 hover:bg-gray-100 
+                                   dark:text-yellow-400 dark:hover:bg-gray-700 transition-colors"
+                        title="Toggle Dark Mode">
+                    <span class="material-symbols-outlined dark:hidden">dark_mode</span> <span
+                        class="material-symbols-outlined hidden dark:block">light_mode</span></button>
+
+                <partial name="_LoginPartial"/>
+            </div>
+        </header>
+
+        <main class="flex-1 p-8">
+            <partial name="_StatusMessages"/>
+            @RenderBody()
+        </main>
+
+        <footer class="p-8 pt-4">
+            <div
+                class="border-t border-gray-200 dark:border-gray-700 pt-4 text-center text-sm text-gray-500 dark:text-gray-400">
+                <p>© 2025 ERP.Admin Sebastian Linero - <a asp-area="" asp-page="/Privacy" class="hover:underline">Privacy</a>
+                </p>
+            </div>
+        </footer>
     </div>
-    
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    
-    @await RenderSectionAsync("Scripts", required: false)
+</div>
+
+<script src="~/js/site.js" asp-append-version="true"></script>
+
+@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

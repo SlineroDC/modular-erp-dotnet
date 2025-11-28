@@ -9,7 +9,11 @@ public class SalesRepository(ApplicationDbContext context) : ISalesRepository
 {
     public async Task<Sale?> GetByIdAsync(int id)
     {
-        return await context.Sales.FirstOrDefaultAsync(s => s.Id == id && s.IsActive);
+        return await context.Sales
+            .Include(s =>s.Customer)
+            .Include(s => s.SalesDetails)
+                .ThenInclude(d => d.Product)
+            .FirstOrDefaultAsync(s => s.Id == id && s.IsActive);
     }
 
     public async Task<ResponsePage<Sale>> GetPaginatedAsync(int pageNumber, int pageSize)
