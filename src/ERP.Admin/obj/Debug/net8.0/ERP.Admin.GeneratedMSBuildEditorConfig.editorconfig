@@ -78,6 +78,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2FsZXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Admin/Pages/Shared/_ChatWidget.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2hhcmVkL19DaGF0V2lkZ2V0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Admin/Pages/Shared/_ContactModal.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2hhcmVkL19Db250YWN0TW9kYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Admin/Pages/Shared/_CustomerForm.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2hhcmVkL19DdXN0b21lckZvcm0uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

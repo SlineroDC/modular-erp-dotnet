@@ -38,6 +38,10 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<ISalesRepository, SalesRepository>();
 builder.Services.AddScoped<IExcelService, ExcelService>();
 builder.Services.AddScoped<IPdfService, PdfService>();
+builder.Services.AddHttpClient<IAiService, LlamaAiService>();
+builder.Services.AddScoped<IEmailService,SmtpEmailService>();
+
+builder.Services.AddControllers();
 // Add support for Razor Pages.
 builder.Services.AddRazorPages();
 
@@ -112,4 +116,5 @@ app.UseStaticFiles(); // Enable serving static files (CSS, JS, images) from the 
 app.UseRouting();
 app.UseAuthorization(); // Enable authorization checks (must be after UseRouting).
 app.MapRazorPages(); // Set up endpoints for all Razor Pages.
+app.MapControllers(); // Set up controllers for the widget AI
 app.Run(); // Start the application.

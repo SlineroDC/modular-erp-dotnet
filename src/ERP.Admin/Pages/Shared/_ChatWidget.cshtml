@@ -1,0 +1,57 @@
+<button onclick="toggleChat()" class="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#003366] text-white shadow-lg hover:scale-105 transition-transform">
+    <span class="material-symbols-outlined text-3xl">smart_toy</span>
+</button>
+
+<div id="chatWindow" class="fixed bottom-24 right-6 z-50 hidden w-80 flex flex-col rounded-2xl bg-white shadow-2xl dark:bg-gray-800 border dark:border-gray-700 overflow-hidden sm:w-96 h-[500px]">
+    
+    <div class="flex items-center justify-between bg-[#003366] px-4 py-3 text-white shrink-0">
+        <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined">psychology</span>
+            <div>
+                <h3 class="font-bold text-sm">ERP Assistant</h3>
+                <span class="text-xs text-green-300 flex items-center gap-1">
+                    <span class="block h-2 w-2 rounded-full bg-green-400"></span> Online
+                </span>
+            </div>
+        </div>
+        
+        <div class="flex items-center gap-1">
+            <button onclick="toggleContactModal(true)" 
+               class="text-white/80 hover:text-white hover:bg-white/10 p-1.5 rounded-full transition-colors"
+               title="Contact Support">
+                <span class="material-symbols-outlined text-xl">support_agent</span>
+            </button>
+            
+            <button onclick="toggleChat()" class="text-white/80 hover:text-white p-1.5 rounded-full hover:bg-white/10 transition-colors">
+                <span class="material-symbols-outlined text-xl">close</span>
+            </button>
+        </div>
+    </div>
+
+    <div id="chatMessages" class="flex-1 min-h-0 flex flex-col gap-3 overflow-y-auto p-4 text-sm bg-gray-50 dark:bg-gray-900 scroll-smooth">
+        <div class="self-start rounded-lg rounded-tl-none bg-white border border-gray-200 px-4 py-3 text-gray-800 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 shadow-sm max-w-[90%]">
+            <p>Hello! I am the ERP AI. 🤖</p>
+            <p class="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                I can help you create sales, manage products, or explain features.
+                If you need human help, click the headphones icon (🎧) above.
+            </p>
+        </div>
+    </div>
+
+    <div class="border-t border-gray-200 p-3 dark:border-gray-700 bg-white dark:bg-gray-800 shrink-0">
+        <form onsubmit="sendMessage(event)" class="flex gap-2">
+            <input id="userQuestion" type="text" 
+                   class="flex-1 rounded-lg border border-gray-300 bg-gray-50 px-3 py-2 text-sm focus:border-blue-500 focus:ring-blue-500 outline-none
+                      dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400" 
+                   placeholder="Type your question..." autocomplete="off">
+        
+            <button type="submit" 
+                    class="rounded-lg px-3 hover:opacity-90 transition-opacity disabled:opacity-50
+                       bg-[#003366] text-white
+                       dark:bg-white dark:text-[#003366]">
+                <span class="material-symbols-outlined text-lg">send</span>
+            </button>
+        </form>
+    </div>
+</div>
+
