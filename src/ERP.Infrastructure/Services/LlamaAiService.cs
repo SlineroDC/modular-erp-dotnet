@@ -2,6 +2,7 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using ERP.Core.Interfaces;
+using Microsoft.Extensions.Configuration;
 
 namespace ERP.Infrastructure.Services;
 
@@ -21,9 +22,10 @@ public class LlamaAiService : IAiService
         { "/Settings", "Configuración: Cambiar datos de la empresa para los recibos." }
     };
 
-    public LlamaAiService(HttpClient httpClient)
+    public LlamaAiService(HttpClient httpClient,IConfiguration configuration)
     {
         _httpClient = httpClient;
+        var url = configuration["AiSettings:BaseUrl"] ?? "http://localhost:11434/";
         _httpClient.BaseAddress = new Uri("http://localhost:11434/"); // Ollama Local
     }
 

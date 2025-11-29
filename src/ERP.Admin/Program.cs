@@ -38,7 +38,7 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<ISalesRepository, SalesRepository>();
 builder.Services.AddScoped<IExcelService, ExcelService>();
 builder.Services.AddScoped<IPdfService, PdfService>();
-builder.Services.AddHttpClient<IAiService, LlamaAiService>();
+builder.Services.AddHttpClient<IAiService, GeminiAiService>();
 builder.Services.AddScoped<IEmailService,SmtpEmailService>();
 
 builder.Services.AddControllers();

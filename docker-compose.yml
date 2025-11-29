@@ -7,10 +7,10 @@
       POSTGRES_PASSWORD: Qwe.123*
       POSTGRES_DB: erp_db
     ports:
-      - "5445:5432" # Puerto externo (cambiado para no chocar con tu otro proyecto)
+      - "5445:5432" # P
     volumes:
       - postgres_data_docker:/var/lib/postgresql/data
-    # 1. AÑADIMOS ESTO: Chequeo de salud
+
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 5s
@@ -25,12 +25,13 @@
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://+:8080
-      # Asegúrate de que la contraseña aquí coincida con la de arriba
       - ConnectionStrings__DefaultConnection=Host=db;Database=erp_db;Username=postgres;Password=Qwe.123*
+      - AiSettings__BaseUrl=http://host.docker.internal:11434
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     ports:
       - "8080:8080"
     depends_on:
-      # 2. CAMBIAMOS ESTO: Esperar a que esté "Healthy" (Sano)
       db:
         condition: service_healthy
 
