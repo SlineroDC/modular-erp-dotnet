@@ -2,7 +2,6 @@ using ERP.Core.Entities;
 
 namespace ERP.Core.Tests.Entities;
 
-
 public class ProductTests
 {
     [Fact]

@@ -1,33 +1,32 @@
 using ERP.Core.Models;
+namespace ERP.Core.Tests.Models;
 
-namespace ERP.Core.Tests.Modals;
-
-public class ResponsePageTest
+public class ResponsePageTests
 {
     [Theory]
-    // Case 1: 10 items, page de 10 = 1 pages exactly
+    // Case 1: 10 items, pages de 10 = 1 pages exactly
     [InlineData(10, 10, 1)]
-    // Case 2: 11 items, page de 10 = 2 pages 
+    // Case 2: 11 items, pages de 10 = 2 page 
     [InlineData(11, 10, 2)]
-    // Case 3: 0 items = 0 pages
+    // Case 3: 0 items = 0 páginas
     [InlineData(0, 10, 0)]
-    // Case 4: 100 items, page de 10 = 10 pages
+    // Case 4: 100 items, pages de 10 = 10 pages
     [InlineData(100, 10, 10)]
-    // Case 5: 5 items, page de 2 = 3 pages (2 + 2 + 1)
+    // Case 5: 5 items, pages de 2 = 3 pages (2 + 2 + 1)
     [InlineData(5, 2, 3)]
     public void TotalPages_Calculation_ShouldBeCorrect(int totalCount, int pageSize, int expectedTotalPages)
     {
-        // Arrange: Create simulate response
+        // Arrange: We create the simulated response
         var page = new ResponsePage<object>
         {
             TotalCount = totalCount,
             PageSize = pageSize
         };
 
-        // Act: calculate
+        // Act: We get the calculation
         var result = page.TotalPages;
 
-        // Assert: Verify calcule
+        // Assert: We verify that the mathematics is correct
         Assert.Equal(expectedTotalPages, result);
     }
     
@@ -42,4 +41,3 @@ public class ResponsePageTest
         Assert.Empty(page.Items);
     }
 }
-
