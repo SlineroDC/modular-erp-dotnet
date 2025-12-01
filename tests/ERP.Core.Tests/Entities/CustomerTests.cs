@@ -1,6 +1,4 @@
 using ERP.Core.Entities;
-using Xunit;
-using Assert = Xunit.Assert;
 
 namespace ERP.Core.Tests.Entities;
 
