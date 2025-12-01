@@ -26,9 +26,6 @@
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://+:8080
       - ConnectionStrings__DefaultConnection=Host=db;Database=erp_db;Username=postgres;Password=Qwe.123*
-      - AiSettings__BaseUrl=http://host.docker.internal:11434
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
     ports:
       - "8080:8080"
     depends_on:

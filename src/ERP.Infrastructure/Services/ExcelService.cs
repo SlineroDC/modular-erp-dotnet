@@ -25,15 +25,12 @@ public class ExcelService(IProductRepository productRepository) : IExcelService
                 var description = worksheet.Cells[row, 4].Value?.ToString();
 
                 if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(priceText)) continue;
-
-                // --- VALIDACIÓN DE DUPLICADOS ---
-                // Si el producto ya existe, lo ignoramos y pasamos al siguiente
+                
                 if (await productRepository.ExistsByNameAsync(name))
                 {
                     continue; 
                 }
-                // --------------------------------
-
+           
                 decimal.TryParse(priceText, out decimal price);
                 int.TryParse(stockText, out int stock);
 
@@ -50,7 +47,6 @@ public class ExcelService(IProductRepository productRepository) : IExcelService
                 count++;
             }
         }
-        // Devuelve solo la cantidad de productos NUEVOS que se crearon
         return count; 
     }
 }

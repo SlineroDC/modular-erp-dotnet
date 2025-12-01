@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/cohorte3/RiderProjects/modular-erp-dotnet/src/ERP.Infrastructure/ERP.Infrastructure.csproj": {}
+    "/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Infrastructure/ERP.Infrastructure.csproj": {}
   },
   "projects": {
-    "/home/cohorte3/RiderProjects/modular-erp-dotnet/src/ERP.Core/ERP.Core.csproj": {
+    "/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Core/ERP.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/cohorte3/RiderProjects/modular-erp-dotnet/src/ERP.Core/ERP.Core.csproj",
+        "projectUniqueName": "/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Core/ERP.Core.csproj",
         "projectName": "ERP.Core",
-        "projectPath": "/home/cohorte3/RiderProjects/modular-erp-dotnet/src/ERP.Core/ERP.Core.csproj",
-        "packagesPath": "/home/cohorte3/.nuget/packages/",
-        "outputPath": "/home/cohorte3/RiderProjects/modular-erp-dotnet/src/ERP.Core/obj/",
+        "projectPath": "/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Core/ERP.Core.csproj",
+        "packagesPath": "/home/Coder/.nuget/packages/",
+        "outputPath": "/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Core/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/cohorte3/.nuget/NuGet/NuGet.Config"
+          "/home/Coder/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -69,21 +69,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/home/cohorte3/.dotnet/sdk/10.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/home/Coder/.dotnet/sdk/10.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "/home/cohorte3/RiderProjects/modular-erp-dotnet/src/ERP.Infrastructure/ERP.Infrastructure.csproj": {
+    "/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Infrastructure/ERP.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/cohorte3/RiderProjects/modular-erp-dotnet/src/ERP.Infrastructure/ERP.Infrastructure.csproj",
+        "projectUniqueName": "/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Infrastructure/ERP.Infrastructure.csproj",
         "projectName": "ERP.Infrastructure",
-        "projectPath": "/home/cohorte3/RiderProjects/modular-erp-dotnet/src/ERP.Infrastructure/ERP.Infrastructure.csproj",
-        "packagesPath": "/home/cohorte3/.nuget/packages/",
-        "outputPath": "/home/cohorte3/RiderProjects/modular-erp-dotnet/src/ERP.Infrastructure/obj/",
+        "projectPath": "/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Infrastructure/ERP.Infrastructure.csproj",
+        "packagesPath": "/home/Coder/.nuget/packages/",
+        "outputPath": "/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Infrastructure/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/cohorte3/.nuget/NuGet/NuGet.Config"
+          "/home/Coder/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -95,8 +95,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/home/cohorte3/RiderProjects/modular-erp-dotnet/src/ERP.Core/ERP.Core.csproj": {
-                "projectPath": "/home/cohorte3/RiderProjects/modular-erp-dotnet/src/ERP.Core/ERP.Core.csproj"
+              "/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Core/ERP.Core.csproj": {
+                "projectPath": "/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Core/ERP.Core.csproj"
               }
             }
           }
@@ -164,7 +164,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/home/cohorte3/.dotnet/sdk/10.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/home/Coder/.dotnet/sdk/10.0.100/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
