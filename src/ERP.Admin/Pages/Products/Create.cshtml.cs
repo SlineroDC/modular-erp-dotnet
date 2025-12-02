@@ -12,10 +12,7 @@ public class Create(IProductRepository productRepository) : PageModel
    
    public void OnGet()
    { 
-      if( Product.Price >= 0);
-      {
-         
-      }
+ 
    }
 
    public async Task<IActionResult> OnPostAsync()
@@ -45,7 +42,6 @@ public class Create(IProductRepository productRepository) : PageModel
          ViewData["ErrorMessage"] = ex.Message;
          
          return Page();
-      throw;
       }
      
       return RedirectToPage("./Index");
