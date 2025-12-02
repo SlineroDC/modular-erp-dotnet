@@ -92,21 +92,21 @@ public class GeminiAiService : IAiService
     private class GeminiResponse
     {
         [JsonPropertyName("candidates")]
-        public List<Candidate> Candidates { get; set; }
+        public List<Candidate>? Candidates { get; set; }
     }
     private class Candidate
     {
         [JsonPropertyName("content")]
-        public Content Content { get; set; }
+        public Content? Content { get; set; }
     }
     private class Content
     {
         [JsonPropertyName("parts")]
-        public List<Part> Parts { get; set; }
+        public List<Part>? Parts { get; set; }
     }
     private class Part
     {
         [JsonPropertyName("text")]
-        public string Text { get; set; }
+        public string? Text { get; set; }
     }
 }

@@ -83,6 +83,6 @@ public class LlamaAiService : IAiService
     private class OllamaResponse
     {
         [JsonPropertyName("response")]
-        public string Response { get; set; }
+        public string? Response { get; set; }
     }
 }
