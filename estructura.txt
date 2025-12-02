@@ -1,0 +1,156 @@
+.
+├── docker-compose.yml
+├── estructura.txt
+├── LICENSE
+├── modular-erp-dotnet.sln
+├── package.json
+├── package-lock.json
+├── postcss.config.js
+├── qodana.yaml
+├── README.md
+├── src
+│   ├── ERP.Admin
+│   │   ├── app.db
+│   │   ├── appsettings.json
+│   │   ├── Areas
+│   │   │   └── Identity
+│   │   │       └── Pages
+│   │   │           ├── Account
+│   │   │           │   ├── Login.cshtml
+│   │   │           │   └── Login.cshtml.cs
+│   │   │           ├── _ViewImports.cshtml
+│   │   │           └── _ViewStart.cshtml
+│   │   ├── Controllers
+│   │   │   ├── AiController.cs
+│   │   │   └── SupportController.cs
+│   │   ├── Data
+│   │   │   ├── ApplicationDbContext.cs
+│   │   │   └── Migrations
+│   │   │       ├── 00000000000000_CreateIdentitySchema.cs
+│   │   │       ├── 00000000000000_CreateIdentitySchema.Designer.cs
+│   │   │       └── ApplicationDbContextModelSnapshot.cs
+│   │   ├── Dockerfile
+│   │   ├── ERP.Admin.csproj
+│   │   ├── Pages
+│   │   │   ├── Customers
+│   │   │   │   ├── Create.cshtml
+│   │   │   │   ├── Create.cshtml.cs
+│   │   │   │   ├── Edit.cshtml
+│   │   │   │   ├── Edit.cshtml.cs
+│   │   │   │   ├── Index.cshtml
+│   │   │   │   └── Index.cshtml.cs
+│   │   │   ├── Error.cshtml
+│   │   │   ├── Error.cshtml.cs
+│   │   │   ├── Index.cshtml
+│   │   │   ├── Index.cshtml.cs
+│   │   │   ├── NotFound.cshtml
+│   │   │   ├── NotFound.cshtml.cs
+│   │   │   ├── Privacy.cshtml
+│   │   │   ├── Privacy.cshtml.cs
+│   │   │   ├── Products
+│   │   │   │   ├── Create.cshtml
+│   │   │   │   ├── Create.cshtml.cs
+│   │   │   │   ├── Edit.cshtml
+│   │   │   │   ├── Edit.cshtml.cs
+│   │   │   │   ├── index.cshtml
+│   │   │   │   └── index.cshtml.cs
+│   │   │   ├── Sales
+│   │   │   │   ├── Create.cshtml
+│   │   │   │   ├── Create.cshtml.cs
+│   │   │   │   ├── Index.cshtml
+│   │   │   │   └── Index.cshtml.cs
+│   │   │   ├── Shared
+│   │   │   │   ├── _ChatWidget.cshtml
+│   │   │   │   ├── _ContactModal.cshtml
+│   │   │   │   ├── _CustomerForm.cshtml
+│   │   │   │   ├── _DeleteConfirmation.cshtml
+│   │   │   │   ├── _ImportModal.cshtml
+│   │   │   │   ├── _Layout.cshtml
+│   │   │   │   ├── _Layout.cshtml.css
+│   │   │   │   ├── _LoginPartial.cshtml
+│   │   │   │   ├── _ProductForm.cshtml
+│   │   │   │   ├── _StatusMessages.cshtml
+│   │   │   │   └── _ValidationScriptsPartial.cshtml
+│   │   │   ├── _ViewImports.cshtml
+│   │   │   └── _ViewStart.cshtml
+│   │   ├── Program.cs
+│   │   ├── Properties
+│   │   │   └── launchSettings.json
+│   │   └── wwwroot
+│   │       ├── css
+│   │       │   ├── input.css
+│   │       │   └── site.css
+│   │       ├── favicon.ico
+│   │       ├── files
+│   │       │   ├── Meeting Minutes Delta Cells.docx
+│   │       │   ├── semilladata.xlsx
+│   │       │   └── Template.xlsx
+│   │       ├── img
+│   │       │   ├── logo1.png
+│   │       │   └── logo2.png
+│   │       ├── js
+│   │       │   ├── chatWidgetAi.js
+│   │       │   ├── contactSupport.js
+│   │       │   ├── sales.js
+│   │       │   └── site.js
+│   │       └── lib
+│   │           ├── bootstrap
+│   │           │   └── LICENSE
+│   │           ├── jquery
+│   │           │   └── LICENSE.txt
+│   │           ├── jquery-validation
+│   │           │   └── LICENSE.md
+│   │           └── jquery-validation-unobtrusive
+│   │               ├── jquery.validate.unobtrusive.js
+│   │               ├── jquery.validate.unobtrusive.min.js
+│   │               └── LICENSE.txt
+│   ├── ERP.Core
+│   │   ├── Dockerfile
+│   │   ├── Entities
+│   │   │   ├── Customer.cs
+│   │   │   ├── Product.cs
+│   │   │   ├── Sale.cs
+│   │   │   └── SalesDetail.cs
+│   │   ├── ERP.Core.csproj
+│   │   ├── Interfaces
+│   │   │   ├── IAiService.cs
+│   │   │   ├── ICustomerRepository.cs
+│   │   │   ├── IEmailService.cs
+│   │   │   ├── IExcelService.cs
+│   │   │   ├── IPdfService.cs
+│   │   │   ├── IProductRepository.cs
+│   │   │   └── ISalesRepository.cs
+│   │   └── Models
+│   │       └── ResponsePage.cs
+│   └── ERP.Infrastructure
+│       ├── ApplicationDbContext.cs
+│       ├── Dockerfile
+│       ├── ERP.Infrastructure.csproj
+│       ├── Migrations
+│       │   ├── 20251118222117_Initial.cs
+│       │   ├── 20251118222117_Initial.Designer.cs
+│       │   ├── 20251120233322_UpdateCustomers.cs
+│       │   ├── 20251120233322_UpdateCustomers.Designer.cs
+│       │   └── ApplicationDbContextModelSnapshot.cs
+│       ├── Repositories
+│       │   ├── CustomerRepository.cs
+│       │   ├── ProductRepository.cs
+│       │   └── SalesRepository.cs
+│       └── Services
+│           ├── ExcelService.cs
+│           ├── GeminiAiService.cs
+│           ├── LlamaAiService.cs
+│           ├── PdfService.cs
+│           └── SmtpEmialService.cs
+├── tailwind.config.js
+└── tests
+    └── ERP.Core.Tests
+        ├── Entities
+        │   ├── CustomerTests.cs
+        │   ├── ProductTests.cs
+        │   └── SaleTests.cs
+        ├── ERP.Core.Tests.csproj
+        └── Models
+            └── ResponsePageTests.cs
+
+

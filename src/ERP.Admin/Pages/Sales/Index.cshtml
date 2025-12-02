@@ -1,0 +1,71 @@
+@page
+@model ERP.Admin.Pages.SalesModel
+@{
+    ViewData["Title"] = "Sales History";
+}
+
+<div class="flex flex-col gap-6">
+    
+    <div class="flex justify-between items-center">
+        <h2 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white">Sales History</h2>
+        
+        <a asp-page="./Create" class="flex h-10 cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-lg bg-[#003366] px-4 text-sm font-bold text-white hover:bg-opacity-90 transition-opacity shadow-md">
+            <span class="material-symbols-outlined text-xl">point_of_sale</span>
+            <span class="truncate">New Sale</span>
+        </a>
+    </div>
+
+    <div class="overflow-hidden rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+        <div class="overflow-x-auto">
+            <table class="min-w-full text-sm">
+                <thead class="border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-700/50 text-gray-700 dark:text-gray-300">
+                    <tr>
+                        <th class="p-4 text-left font-medium">Sale ID</th>
+                        <th class="p-4 text-left font-medium">Date</th>
+                        <th class="p-4 text-left font-medium">Customer</th>
+                        <th class="p-4 text-left font-medium">Total Amount</th>
+                        <th class="p-4 text-left font-medium">Actions</th>
+                    </tr>
+                </thead>
+                
+                <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                    @foreach (var sale in Model.Data.Items)
+                    {
+                        <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                            <td class="p-4 font-mono text-gray-500 dark:text-gray-400">#@sale.Id</td>
+                            
+                            <td class="p-4 text-gray-900 dark:text-white">
+                                @sale.Date.ToShortDateString()
+                            </td>
+                            
+                            <td class="p-4 text-gray-900 dark:text-white font-medium">
+                                @(sale.Customer?.Name ?? "Unknown Customer") @(sale.Customer?.LastName)
+                            </td>
+                            
+                            <td class="p-4 font-bold text-green-600 dark:text-green-400">
+                                @sale.Total.ToString("C")
+                            </td>
+                            
+                            <td class="p-4">
+                                <a asp-page-handler="DownloadPdf" asp-route-id="@sale.Id" 
+                                   class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg border border-gray-300 bg-white text-xs font-bold text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 transition-colors shadow-sm"
+                                   title="Download Receipt">
+                                    <span class="material-symbols-outlined text-base text-red-500">picture_as_pdf</span>
+                                    Receipt
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="flex items-center justify-between border-t border-gray-200 dark:border-gray-700 p-4 text-sm text-gray-600 dark:text-gray-400">
+            <div>Page @Model.Data.PageNumber of @Model.Data.TotalPages</div>
+            <div class="flex items-center gap-2">
+                @if(Model.Data.PageNumber > 1) { <a asp-route-pageNumber="@(Model.Data.PageNumber - 1)" class="btn-pagination">Previous</a> }
+                @if(Model.Data.PageNumber < Model.Data.TotalPages) { <a asp-route-pageNumber="@(Model.Data.PageNumber + 1)" class="btn-pagination">Next</a> }
+            </div>
+        </div>
+    </div>
+</div>
