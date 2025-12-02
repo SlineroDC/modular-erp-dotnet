@@ -9,10 +9,13 @@ public class Create(IProductRepository productRepository) : PageModel
 {
    //Connect to inputs with forms
    [BindProperty] public Product Product { get; set; } = new();
-
+   
    public void OnGet()
-   {
-      var ProctectedNegative = Product.Price >= 0;
+   { 
+      if( Product.Price >= 0);
+      {
+         
+      }
    }
 
    public async Task<IActionResult> OnPostAsync()
@@ -22,7 +25,29 @@ public class Create(IProductRepository productRepository) : PageModel
       {
          return Page(); 
       }
-      await productRepository.AddAsync(Product);
+
+      if (Product.Price < 0)
+      {
+         ModelState.AddModelError("Product.Price", "The product price must be greater than or equal to 0.");
+         
+         ViewData["ErrorMessage"] = "The product price cannot be negative.";
+         return Page();
+      }
+
+      try
+      {
+         await productRepository.AddAsync(Product);
+      }
+      catch (Exception ex)
+      {
+         ModelState.AddModelError(string.Empty, "An error occurred while saving.");
+         
+         ViewData["ErrorMessage"] = ex.Message;
+         
+         return Page();
+      throw;
+      }
+     
       return RedirectToPage("./Index");
    }
 }

@@ -23,7 +23,7 @@ public class CreateCustomerModel(ICustomerRepository customerRepository) : PageM
 
         if (isDuplicate)
         {
-            ModelState.AddModelError(string.Empty, "Error: El Documento o Email ya están registrados.");
+            ModelState.AddModelError(string.Empty, "Error: The Document or Email is already registered.\"");
             return Page();
         }
         
@@ -33,7 +33,7 @@ public class CreateCustomerModel(ICustomerRepository customerRepository) : PageM
         }
         catch (Exception ex)
         {
-            ModelState.AddModelError(string.Empty, "Ocurrió un error al guardar. Verifique los datos.");
+            ModelState.AddModelError(string.Empty, "An error occurred while saving. Check the data.");
             return Page();
         }
 
