@@ -31,7 +31,7 @@ public class CreateCustomerModel(ICustomerRepository customerRepository) : PageM
         {
             await customerRepository.AddAsync(Customer);
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             ModelState.AddModelError(string.Empty, "An error occurred while saving. Check the data.");
             return Page();

@@ -100,7 +100,7 @@ public class PdfService : IPdfService
                             // Local function for consistent header styling
                             static IContainer CellStyle(IContainer container)
                             {
-                                return container.DefaultTextStyle(x => x.SemiBold().Color(Colors.White))
+                                return container.DefaultTextStyle(x => x.SemiBold().FontColor(Colors.White))
                                                 .Background(Colors.Blue.Darken3)
                                                 .PaddingVertical(5)
                                                 .PaddingHorizontal(10);
