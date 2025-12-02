@@ -1,5 +1,5 @@
 @page
-@model ERP.Admin.Pages.ProductsModel
+@model ProductsModel
 
 @{
     ViewData["Title"] = "Products";
@@ -15,12 +15,16 @@
         class="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4">
 
         <div class="relative flex-grow sm:flex-grow-0 sm:w-72">
-            <span
-                class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400">search</span>
-            <input
-                class="h-10 w-full rounded-lg border border-gray-200 dark:border-gray-700 bg-transparent pl-10 pr-4 text-sm text-gray-900 dark:text-white focus:ring-blue-900 focus:border-blue-900 placeholder-gray-500 dark:placeholder-gray-400 transition-colors"
-                placeholder="Search products..."
-                type="text">
+            <form method="get" class="relative w-full">
+                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400">search</span>
+        
+                <input name="SearchTerm" 
+                       value="@Model.SearchTerm"
+                       class="h-10 w-full rounded-lg border border-gray-200 dark:border-gray-700 bg-transparent pl-10 pr-4 text-sm text-gray-900 dark:text-white focus:ring-blue-900 focus:border-blue-900 placeholder-gray-500 dark:placeholder-gray-400 transition-colors" 
+                       placeholder="Search products..." 
+                       type="text" 
+                       autocomplete="off">
+            </form>
         </div>
         <button type="button"
                 onclick="openImportModal()"
@@ -29,7 +33,7 @@
             <span class="truncate">Import Excel</span>
         </button>
         <div class="flex flex-wrap items-center gap-2">
-            <a asp-page="./CreateProduct"
+            <a asp-page="./Create"
                class="flex h-10 cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-lg bg-[#003366] px-4 text-sm font-bold text-white hover:bg-opacity-90 transition-opacity shadow-md">
                 <span class="material-symbols-outlined text-xl">add</span>
                 <span class="truncate">Create New</span>
@@ -60,7 +64,7 @@
 
                         <td class="p-4">
                             <div class="flex gap-2">
-                                <a asp-page="./EditProduct" asp-route-id="@product.Id"
+                                <a asp-page="./Edit" asp-route-id="@product.Id"
                                    class="p-2 rounded-lg hover:bg-blue-50 text-constructor-blue dark:text-blue-400 dark:hover:bg-blue-900/30 transition-colors"
                                    title="Edit Product">
                                     <span class="material-symbols-outlined text-lg">edit</span>

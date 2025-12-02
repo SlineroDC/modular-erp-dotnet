@@ -1,11 +1,11 @@
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using ERP.Core.Entities;
 using ERP.Core.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace ERP.Admin.Pages;
+namespace ERP.Admin.Pages.Products;
 
-public class EditProduct(IProductRepository productRepository) : PageModel
+public class Edit(IProductRepository productRepository) : PageModel
 {
    [BindProperty] public Product Product { get; set; } = new();
 
@@ -31,7 +31,7 @@ public class EditProduct(IProductRepository productRepository) : PageModel
       }
       await  productRepository.UpdateAsync(Product);
       
-      return  RedirectToPage("./Products");
+      return  RedirectToPage("./Index");
    }
 
 }

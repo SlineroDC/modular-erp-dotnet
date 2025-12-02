@@ -1,4 +1,7 @@
 using ERP.Core.Models;
+using Xunit;
+using Assert = Xunit.Assert;
+
 namespace ERP.Core.Tests.Models;
 
 public class ResponsePageTests

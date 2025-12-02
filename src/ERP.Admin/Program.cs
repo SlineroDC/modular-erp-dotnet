@@ -43,10 +43,16 @@ builder.Services.AddScoped<IEmailService,SmtpEmailService>();
 
 builder.Services.AddControllers();
 // Add support for Razor Pages.
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages(options =>
+{
+    options.Conventions.AuthorizeFolder("/");
+});
 
 // --- 3. Build the App and Configure the HTTP Pipeline ---
 var app = builder.Build();
+
+var defaultCulture = new System.Globalization.CultureInfo("en-US");
+System.Globalization.CultureInfo.DefaultThreadCurrentCulture = defaultCulture;
 
 //Auto migration for docker
 using (var scope = app.Services.CreateScope())
@@ -94,6 +100,8 @@ else
     app.UseHsts(); // Enforce HTTPS.
 }
 
+app.UseStatusCodePagesWithRedirects("/Notfound");
+
 app.MapGet("/", async context =>
 {
         // Si ya está logueado, va al Dashboard (Index)
@@ -113,7 +121,8 @@ app.MapGet("/", async context =>
 
 //app.UseHttpsRedirection();
 app.UseStaticFiles(); // Enable serving static files (CSS, JS, images) from the wwwroot folder.
-app.UseRouting();
+app.UseRouting(); // Enable routing.
+app.UseAuthentication(); // Enable user authentication.
 app.UseAuthorization(); // Enable authorization checks (must be after UseRouting).
 app.MapRazorPages(); // Set up endpoints for all Razor Pages.
 app.MapControllers(); // Set up controllers for the widget AI

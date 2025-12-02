@@ -1,10 +1,10 @@
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using ERP.Core.Entities;
 using ERP.Core.Interfaces;
 using ERP.Core.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace ERP.Admin.Pages;
+namespace ERP.Admin.Pages.Products;
 
 // Inject both Repository and ExcelService using primary constructor
 public class ProductsModel(IProductRepository productRepository, IExcelService excelService) : PageModel
@@ -12,6 +12,10 @@ public class ProductsModel(IProductRepository productRepository, IExcelService e
     // Data for the view table
     public ResponsePage<Product> Data { get; set; } = new();
 
+    // Search term for filtering products
+    [BindProperty(SupportsGet = true)] public string? SearchTerm { get; set; }
+
+ 
     // Property to bind the uploaded Excel file
     [BindProperty] public IFormFile UploadedFile { get; set; }
 
@@ -19,7 +23,7 @@ public class ProductsModel(IProductRepository productRepository, IExcelService e
     public async Task OnGetAsync([FromQuery] int pageNumber = 1)
     {
         const int pageSize = 10;
-        Data = await productRepository.GetAllAsync(pageNumber, pageSize);
+        Data = await productRepository.GetAllAsync(pageNumber, pageSize, SearchTerm);
     }
 
     // POST: Soft delete a product

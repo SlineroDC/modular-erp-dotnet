@@ -13,15 +13,21 @@ public class CustomerRepository(ApplicationDbContext context) : ICustomerReposit
             .FirstOrDefaultAsync(c => c.Id == id && c.IsActive);
     }
 
-    public async Task<ResponsePage<Customer>> GetAllAsync(int pageNumber, int pageSize)
+    public async Task<ResponsePage<Customer>> GetAllAsync(int pageNumber, int pageSize, string? searchTerm = null)
     {
-        var totalCount = await context.Customers
-            .Where(c => c.IsActive)
-            .CountAsync();
+        var query = context.Customers.Where(c => c.IsActive).AsQueryable();
 
+        if (!string.IsNullOrWhiteSpace(searchTerm))
+        {
+            var term = searchTerm.ToLower();
+            
+            query = query.Where(c => c.Name.ToLower().Contains(term) || c.Email.ToLower().Contains(term));
+        }
+        
+        
+        var totalCount = await query.CountAsync();
 
-        var items = await context.Customers
-            .Where(c => c.IsActive)
+        var items = await query
             .OrderBy(c => c.Id)
             .Skip((pageNumber - 1) * pageSize)
             .Take(pageSize)
@@ -46,7 +52,17 @@ public class CustomerRepository(ApplicationDbContext context) : ICustomerReposit
 
     public async Task UpdateAsync(Customer customer)
     {
-        context.Customers.Update(customer);
+        var existing = await context.Customers.FindAsync(customer.Id);
+        if (existing != null)
+        {
+            existing.Name = customer.Name;
+            existing.LastName = customer.LastName;
+            existing.Email = customer.Email;
+            existing.IdDocument = customer.IdDocument;
+            existing.Phone = customer.Phone;
+            existing.Address = customer.Address;
+        }
+        
         await context.SaveChangesAsync();
     }
 

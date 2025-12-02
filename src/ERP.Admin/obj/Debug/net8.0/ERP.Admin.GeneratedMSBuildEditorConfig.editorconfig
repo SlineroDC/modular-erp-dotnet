@@ -34,28 +34,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXMvSWRlbnRpdHkvUGFnZXMvX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Admin/Pages/CreateCustomer.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQ3JlYXRlQ3VzdG9tZXIuY3NodG1s
+[/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Admin/Pages/Customers/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQ3VzdG9tZXJzL0NyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Admin/Pages/CreateProduct.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQ3JlYXRlUHJvZHVjdC5jc2h0bWw=
+[/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Admin/Pages/Customers/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQ3VzdG9tZXJzL0VkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Admin/Pages/CreateSale.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQ3JlYXRlU2FsZS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Admin/Pages/Customers.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQ3VzdG9tZXJzLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Admin/Pages/EditCustomer.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRWRpdEN1c3RvbWVyLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Admin/Pages/EditProduct.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRWRpdFByb2R1Y3QuY3NodG1s
+[/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Admin/Pages/Customers/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQ3VzdG9tZXJzL0luZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Admin/Pages/Error.cshtml]
@@ -66,16 +54,32 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Admin/Pages/NotFound.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvTm90Rm91bmQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Admin/Pages/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJpdmFjeS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Admin/Pages/Products.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJvZHVjdHMuY3NodG1s
+[/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Admin/Pages/Products/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJvZHVjdHMvQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Admin/Pages/Sales.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2FsZXMuY3NodG1s
+[/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Admin/Pages/Products/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJvZHVjdHMvRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Admin/Pages/Products/index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJvZHVjdHMvaW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Admin/Pages/Sales/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2FsZXMvQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Admin/Pages/Sales/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2FsZXMvSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/Coder/RiderProjects/modular-erp-dotnet/src/ERP.Admin/Pages/Shared/_ChatWidget.cshtml]

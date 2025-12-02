@@ -18,8 +18,8 @@ public class CreateSaleModel(
   public async Task OnGetAsync()
   {
     //Get the first 1000 products and customers
-    var productsInSales = await productRepository.GetAllAsync(1, 1000);
-    var customerInSales = await customerRepository.GetAllAsync(1, 1000);
+    var productsInSales = await productRepository.GetAllAsync(1, 1000, null);
+    var customerInSales = await customerRepository.GetAllAsync(1, 1000, null);
     
     Products = productsInSales.Items;
     Customers = customerInSales.Items;

@@ -13,15 +13,21 @@ public class ProductRepository (ApplicationDbContext context): IProductRepositor
             .FirstOrDefaultAsync(p => p.Id == id && p.IsActive);
     }
 
-    public async Task<ResponsePage<Product>> GetAllAsync(int pageNumber, int pageSize)
+    public async Task<ResponsePage<Product>> GetAllAsync(int pageNumber, int pageSize, string? searchTerm = null)
     {
-        var totalCount = await context.Products
-            .Where(p => p.IsActive)
-            .CountAsync();
-            
+        var query = context.Products.Where(p => p.IsActive).AsQueryable();
 
-        var items = await context.Products
-            .Where(p => p.IsActive)    
+        if (!string.IsNullOrWhiteSpace(searchTerm))
+        {
+            var term = searchTerm.ToLower();
+            query = query.Where(p => p.Name.ToLower().Contains(term) || p.Description.ToLower().Contains(term));
+        }
+        
+        
+        
+        var totalCount = await query.CountAsync();
+        
+        var items = await query
             .OrderBy(p => p.Id)
             .Skip((pageNumber - 1) * pageSize)
             .Take(pageSize)

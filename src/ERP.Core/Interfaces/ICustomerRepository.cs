@@ -7,7 +7,7 @@ public interface ICustomerRepository
 {
     Task<Customer?> GetByIdAsync(int id);
     
-    Task<ResponsePage<Customer>> GetAllAsync(int pageNumber, int pageSize);
+    Task<ResponsePage<Customer>> GetAllAsync(int pageNumber, int pageSize, string? searchTerm);
     
     Task AddAsync (Customer customer);
     
