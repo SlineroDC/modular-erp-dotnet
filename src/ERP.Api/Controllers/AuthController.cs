@@ -1,7 +1,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using ERP.Api.DTos;
+using ERP.Api.Dto;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -27,21 +27,32 @@ public class AuthController : ControllerBase
         var user = await _userManager.FindByEmailAsync(model.Email);
         if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
         {
-            // Crear Claims (Datos del usuario en el token)
+            //Check Users Roles
+            var userRoles = await _userManager.GetRolesAsync(user);
+            
+            // Create Claims 
             var authClaims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.UserName),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(ClaimTypes.NameIdentifier, user.Id),
             };
+            
+            
+            // Adding Roles Token
 
-            // Generar Llave
+            foreach (var role in userRoles)
+            {
+                authClaims.Add(new Claim(ClaimTypes.Role, role));
+            }
+            
+            // Generate keys 
             var jwtSettings = _configuration.GetSection("JwtSettings");
             var authSigningKey = new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(jwtSettings["Key"]!)
             );
 
-            // Crear Token
+            // Create Token
             var token = new JwtSecurityToken(
                 issuer: jwtSettings["Issuer"],
                 audience: jwtSettings["Audience"],
@@ -62,6 +73,6 @@ public class AuthController : ControllerBase
                 }
             );
         }
-        return Unauthorized();
+        return Unauthorized("User or password incorrect");
     }
 }
