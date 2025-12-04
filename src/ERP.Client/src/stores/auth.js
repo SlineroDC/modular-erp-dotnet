@@ -13,8 +13,11 @@ export const useAuthStore = defineStore('auth', () => {
     async function login(email, password) {
         try {
             const response = await api.post('/auth/login', { email, password });
-            
-            const { token: newToken, user: newUser } = response.data;
+            console.log("response API:",response.data);
+
+            const { token: newToken, username: newUser } = response.data;
+
+            if(!newToken) throw new Error("Token don't received")
             
             token.value = newToken;
             user.value = newUser;

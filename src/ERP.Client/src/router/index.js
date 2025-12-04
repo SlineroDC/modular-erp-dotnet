@@ -29,16 +29,20 @@ const router = createRouter({
     routes
 })
 
-//Guatd navegations
+//Guard negations
 
 router.beforeEach((to, from, next) => {
     const authStore = useAuthStore()
 
-    const publicPages = ['/login','/register']
-    const authRequired = !publicPages.includes(to.path)
+    const publicPages = ['Login','Register']
+    const isPublic = publicPages.includes(to.name)
 
-    if (authRequired || !authStore.isAuthenticated){
-        return next('/login')
+    if(!isPublic && !authStore.isAuthenticated){
+        return next({name: 'Login'})
+    }
+
+    if (isPublic || authStore.isAuthenticated){
+        return next({name: 'Home'})
     }
     next()
 })
