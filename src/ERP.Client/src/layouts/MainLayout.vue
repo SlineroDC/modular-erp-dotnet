@@ -38,7 +38,7 @@ onMounted(() => {
 
     <header class="sticky top-0 z-40 glass glass-dark px-6 py-4 flex justify-between items-center transition-all duration-300">
       <div class="flex items-center gap-3">
-        <img src="" class="h-8 w-auto" alt="Logo" /> 
+        <img src="/svg/logo1.png" class="h-8 w-auto" alt="Logo" /> 
         <span class="font-bold text-xl tracking-tight text-constructor-blue dark:text-white">Firmeza</span>
       </div>
       

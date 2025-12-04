@@ -1,66 +1,35 @@
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import MainLayout from '../layouts/MainLayout.vue';
 import ProductCard from '../components/ProductCard.vue';
 import ProductModal from '../components/ProductModal.vue';
 import { useCartStore } from '../stores/cart';
 
-// Datos de ejemplo (Mock Data) - Luego conectaremos esto a tu API .NET
-const products = ref([
-  { 
-    id: 1, 
-    name: "Industrial Drill 20V", 
-    price: 150.00, 
-    stock: 25, 
-    description: "High power cordless drill for concrete and metal.", 
-    image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&q=80&w=800",
-    images: [
-        "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&q=80&w=800",
-        "https://images.unsplash.com/photo-1622033879291-6004c3820a72?auto=format&fit=crop&q=80&w=800" 
-    ]
-  },
-  { 
-    id: 2, 
-    name: "Safety Helmet", 
-    price: 25.00, 
-    stock: 5, 
-    description: "Yellow protective helmet, impact resistant.", 
-    image: "https://images.unsplash.com/photo-1584715653473-71069a99c15d?auto=format&fit=crop&q=80&w=800" 
-  },
-  { 
-    id: 3, 
-    name: "Concrete Mixer", 
-    price: 450.00, 
-    stock: 0, 
-    description: "Portable cement mixer for small to medium projects.", 
-    image: "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?auto=format&fit=crop&q=80&w=800" 
-  },
-  { 
-    id: 4, 
-    name: "Tool Set Pro", 
-    price: 89.99, 
-    stock: 50, 
-    description: "Complete set of wrenches, screwdrivers and pliers.", 
-    image: "https://images.unsplash.com/photo-1530124566582-a618bc2615dc?auto=format&fit=crop&q=80&w=800" 
-  },
-  { 
-    id: 5, 
-    name: "Work Gloves", 
-    price: 12.50, 
-    stock: 200, 
-    description: "Durable leather gloves for heavy duty work.", 
-    image: "https://images.unsplash.com/photo-1612469223343-5e751751288f?auto=format&fit=crop&q=80&w=800" 
-  }
-]);
-
+const products = ref([]);
+const isLoading = ref(true);
 const isModalOpen = ref(false);
 const selectedProduct = ref({});
 const cartStore = useCartStore();
+
+async function fetchProducts() {
+  try {
+    const response = await api.get('/Products?page=1&pageSize=100'); 
+    products.value = response.data.items;
+    console.error("Error load products:", error);
+  } finally {
+    isLoading.value = false;
+  }
+}
+
 
 function openModal(product) {
   selectedProduct.value = product;
   isModalOpen.value = true;
 }
+
+onMounted(() => {
+  fetchProducts();
+})
 </script>
 
 <template>

@@ -41,7 +41,7 @@ router.beforeEach((to, from, next) => {
         return next({name: 'Login'})
     }
 
-    if (isPublic || authStore.isAuthenticated){
+    if (isPublic && authStore.isAuthenticated){
         return next({name: 'Home'})
     }
     next()
