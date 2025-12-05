@@ -34,7 +34,7 @@ public class SalesController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateSale([FromBody] SaleDetailDto saleDto)
+    public async Task<IActionResult> CreateSale([FromBody] CreateSaleDto saleDto)
     {
         var userEmail = User.FindFirstValue(ClaimTypes.Name);
         if (string.IsNullOrEmpty(userEmail))
@@ -46,7 +46,6 @@ public class SalesController : ControllerBase
         if (customer == null)
             return BadRequest("Client not found in the business database.");
 
-        // 2. Construir la Venta
         var sale = new Sale
         {
             CustomerId = customer.Id,
@@ -57,8 +56,7 @@ public class SalesController : ControllerBase
 
         decimal total = 0;
 
-        // 3. Procesar Productos
-        foreach (var item in saleDto.salesDetails)
+        foreach (var item in saleDto.Details)
         {
             var product = await _productRepository.GetByIdAsync(item.ProductId);
             if (product == null)
@@ -87,7 +85,28 @@ public class SalesController : ControllerBase
         try
         {
             var fullSale = await _saleRepository.GetByIdAsync(sale.Id);
-            var pdfBytes = _pdfService.GenerateSaleReceipt(fullSale!);
+
+            if (fullSale != null && fullSale.Customer != null)
+            {
+                var pdfBytes = _pdfService.GenerateSaleReceipt(fullSale);
+
+                var emailBody =
+                    $@"
+                     <h3>Thank you for your purchase, {fullSale.Customer.Name}!</h3>
+                    <p>Attached you will find the receipt of your purchase made on {fullSale.Date}.</p>
+                    <p>Total: <strong>{fullSale.Total:C}</strong></p>
+                    <br>
+                    <p>Sincerely,<br>The Firmeza team.</p>
+                ";
+
+                await _emailService.SendEmailWithAttachmentAsync(
+                    toEmail: fullSale.Customer.Email,
+                    subject: $"Recibo de Compra #{fullSale.Id} - Firmeza",
+                    message: emailBody,
+                    attachmentFile: pdfBytes,
+                    fileName: $"Recibo_{fullSale.Id}.pdf"
+                );
+            }
         }
         catch (Exception ex)
         {
