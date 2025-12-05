@@ -24,13 +24,14 @@ public class ExcelService(IProductRepository productRepository) : IExcelService
                 var stockText = worksheet.Cells[row, 3].Value?.ToString();
                 var description = worksheet.Cells[row, 4].Value?.ToString();
 
-                if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(priceText)) continue;
-                
+                if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(priceText))
+                    continue;
+
                 if (await productRepository.ExistsByNameAsync(name))
                 {
-                    continue; 
+                    continue;
                 }
-           
+
                 decimal.TryParse(priceText, out decimal price);
                 int.TryParse(stockText, out int stock);
 
@@ -40,13 +41,13 @@ public class ExcelService(IProductRepository productRepository) : IExcelService
                     Price = price,
                     Stock = stock,
                     Description = description ?? "",
-                    IsActive = true
+                    IsActive = true,
                 };
 
                 await productRepository.AddAsync(product);
                 count++;
             }
         }
-        return count; 
+        return count;
     }
 }

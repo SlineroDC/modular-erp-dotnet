@@ -39,7 +39,7 @@
                             </td>
                             
                             <td class="p-4 text-gray-900 dark:text-white font-medium">
-                                @(sale.Customer?.Name ?? "Unknown Customer") @(sale.Customer?.LastName)
+                                @(sale.Customer?.Name ?? sale.Customer?.Email ?? "Customer web") @(sale.Customer?.LastName)
                             </td>
                             
                             <td class="p-4 font-bold text-green-600 dark:text-green-400">

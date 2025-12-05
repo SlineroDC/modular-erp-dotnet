@@ -10,19 +10,21 @@ public class SupportController(IEmailService emailService) : ControllerBase
     [HttpPost("send")]
     public async Task<IActionResult> SendSupportRequest([FromBody] SupportRequest request)
     {
-        if (string.IsNullOrWhiteSpace(request.Message)) return BadRequest();
+        if (string.IsNullOrWhiteSpace(request.Message))
+            return BadRequest();
 
-        var body = $@"
-            <h3>Nuevo mensaje de soporte</h3>
-            <p><strong>Usuario:</strong> {User.Identity?.Name ?? "Anónimo"}</p>
-            <p><strong>Mensaje:</strong></p>
+        var body =
+            $@"
+            <h3>New support message</h3>
+            <p><strong>User:</strong> {User.Identity?.Name ?? "Anonymous"}</p>
+            <p><strong>Message:</strong></p>
             <p>{request.Message}</p>
         ";
 
         try
         {
-            await emailService.SendEmailAsync("Ayuda desde el Dashboard", body);
-            return Ok(new { message = "Correo enviado exitosamente" });
+            await emailService.SendEmailAsync("Support request from Dashboard", body);
+            return Ok(new { message = "Email sent successfully" });
         }
         catch (Exception ex)
         {

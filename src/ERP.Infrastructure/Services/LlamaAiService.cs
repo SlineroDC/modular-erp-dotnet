@@ -10,16 +10,16 @@ public class LlamaAiService : IAiService
 {
     private readonly HttpClient _httpClient;
     
-    //Navigation Map for redirections and descriptions
+    // Navigation map for redirections and descriptions
     private readonly Dictionary<string, string> _navigationMap = new()
     {
-        { "/Index", "Dashboard: Ver métricas generales y resumen del negocio." },
-        { "/Products", "Lista de Productos: Ver inventario, precios y stock." },
-        { "/CreateProduct", "Crear Producto: Formulario para registrar nuevos items." },
-        { "/Customers", "Clientes: Gestionar la base de datos de compradores." },
-        { "/Sales", "Historial de Ventas: Ver facturas pasadas y descargar recibos PDF." },
-        { "/CreateSale", "Nueva Venta (POS): Carrito de compras para registrar pedidos." },
-        { "/Settings", "Configuración: Cambiar datos de la empresa para los recibos." }
+        { "/Index", "Dashboard: View general metrics and business summary." },
+        { "/Products", "Products list: View inventory, prices and stock." },
+        { "/CreateProduct", "Create product: Form to register new items." },
+        { "/Customers", "Customers: Manage buyer database." },
+        { "/Sales", "Sales history: View past invoices and download PDF receipts." },
+        { "/CreateSale", "New sale (POS): Shopping cart to register orders." },
+        { "/Settings", "Settings: Change company data for receipts." }
     };
 
     public LlamaAiService(HttpClient httpClient,IConfiguration configuration)
@@ -31,34 +31,34 @@ public class LlamaAiService : IAiService
 
     public async Task<string> AskAssistantAsync(string userQuestion)
     {
-        // Constructor prompt dynamic the system in spanish and response too in English
+        // Build dynamic system prompt and response rules in English
         var navigationContext = string.Join("\n", _navigationMap.Select(x => $"- {x.Key}: {x.Value}"));
 
         var systemPrompt = $@"
-            Eres 'FirmezaBot', el asistente virtual del ERP Firmeza.
-            Tu objetivo es ayudar al administrador a navegar y usar el sistema.
+            You are 'FirmezaBot', the virtual assistant for the Firmeza ERP.
+            Your goal is to help the admin navigate and use the system.
 
-            CONOCIMIENTO DEL SISTEMA (Rutas disponibles):
+            SYSTEM KNOWLEDGE (available routes):
             {navigationContext}
 
-            REGLAS DE SEGURIDAD (INTEGRIDAD):
-            1. NUNCA reveles contraseñas, cadenas de conexión o nombres de tablas de la base de datos.
-            2. NUNCA inventes rutas que no estén en la lista de arriba.
-            3. Si no sabes la respuesta, sugiere contactar a soporte.
+            SECURITY RULES (INTEGRITY):
+            1. NEVER reveal passwords, connection strings or database table names.
+            2. NEVER invent routes that are not in the list above.
+            3. If you don't know the answer, suggest contacting support.
 
-            REGLAS DE RESPUESTA:
-            1. Responde solo en español o en ingles (NO MAS IDOMAS) por defecto ingles a no ser que te hablen en español.
-            2. Sé breve y directo.
-            3. Si el usuario pregunta cómo ir a un lugar, DALE EL LINK HTML exacto.
-               Ejemplo: 'Puedes ver los productos aquí: <a href=""/Products"" class=""text-blue-400 underline"">Ir a Productos</a>'.
-            4. Si el usuario reporta un error grave, dile que use el botón de 'Soporte'.
+            RESPONSE RULES:
+            1. Respond in English by default (or Spanish if the user speaks Spanish). No other languages.
+            2. Be brief and direct.
+            3. If the user asks how to go somewhere, GIVE THE EXACT HTML LINK.
+               Example: 'You can see products here: <a href=""/Products"" class=""text-blue-400 underline"">Go to Products</a>'.
+            4. If the user reports a serious error, tell them to use the 'Support' button.
         ";
 
         var requestBody = new
         {
             // Call the model installation in the Docker container
             model = "gemma:2b", 
-            prompt = $"{systemPrompt}\n\nUsuario: {userQuestion}\nAsistente:",
+            prompt = $"{systemPrompt}\n\nUser: {userQuestion}\nAssistant:",
             stream = false
         };
 
@@ -83,6 +83,6 @@ public class LlamaAiService : IAiService
     private class OllamaResponse
     {
         [JsonPropertyName("response")]
-        public string Response { get; set; }
+        public string? Response { get; set; }
     }
 }

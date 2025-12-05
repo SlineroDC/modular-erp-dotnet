@@ -9,22 +9,26 @@ public class CustomerRepository(ApplicationDbContext context) : ICustomerReposit
 {
     public async Task<Customer?> GetByIdAsync(int id)
     {
-        return await context.Customers
-            .FirstOrDefaultAsync(c => c.Id == id && c.IsActive);
+        return await context.Customers.FirstOrDefaultAsync(c => c.Id == id && c.IsActive);
     }
 
-    public async Task<ResponsePage<Customer>> GetAllAsync(int pageNumber, int pageSize, string? searchTerm = null)
+    public async Task<ResponsePage<Customer>> GetAllAsync(
+        int pageNumber,
+        int pageSize,
+        string? searchTerm = null
+    )
     {
         var query = context.Customers.Where(c => c.IsActive).AsQueryable();
 
         if (!string.IsNullOrWhiteSpace(searchTerm))
         {
             var term = searchTerm.ToLower();
-            
-            query = query.Where(c => c.Name.ToLower().Contains(term) || c.Email.ToLower().Contains(term));
+
+            query = query.Where(c =>
+                c.Name.ToLower().Contains(term) || c.Email.ToLower().Contains(term)
+            );
         }
-        
-        
+
         var totalCount = await query.CountAsync();
 
         var items = await query
@@ -38,7 +42,7 @@ public class CustomerRepository(ApplicationDbContext context) : ICustomerReposit
             Items = items,
             TotalCount = totalCount,
             PageNumber = pageNumber,
-            PageSize = pageSize
+            PageSize = pageSize,
         };
         return response;
     }
@@ -62,7 +66,7 @@ public class CustomerRepository(ApplicationDbContext context) : ICustomerReposit
             existing.Phone = customer.Phone;
             existing.Address = customer.Address;
         }
-        
+
         await context.SaveChangesAsync();
     }
 
@@ -82,12 +86,13 @@ public class CustomerRepository(ApplicationDbContext context) : ICustomerReposit
     {
         var query = context.Customers.AsQueryable();
 
-        
         if (excludeId.HasValue)
         {
             query = query.Where(c => c.Id != excludeId.Value);
         }
 
-        return await query.AnyAsync(c => (c.Email == email || c.IdDocument == document) && c.IsActive);
+        return await query.AnyAsync(c =>
+            (c.Email == email || c.IdDocument == document) && c.IsActive
+        );
     }
 }

@@ -41,14 +41,14 @@ if (themeToggleBtn) {
             if (modal) modal.classList.add('hidden');
         }
     }
-    // Lógic import Modal 
+    // Import Modal logic
 
     function openImportModal() {
         const modal = document.getElementById('importModal');
         if (modal) {
             modal.classList.remove('hidden');
         } else {
-            console.error('No se encontró el elemento con id "importModal"');
+            console.error('Element with id "importModal" not found');
         }
     }
 
@@ -59,7 +59,7 @@ if (themeToggleBtn) {
         }
     }
 
-// Lógic optional for view a name the file selected
+// Optional logic to display the selected file name
     function showFileName(input) {
         const fileNameDisplay = document.getElementById('file-name');
         if (input.files && input.files.length > 0) {

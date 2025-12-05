@@ -1,36 +1,37 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>ERP.Infrastructure</AssemblyName>
+    <RootNamespace>ERP.Infrastructure</RootNamespace>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+  </PropertyGroup>
 
-    <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <AssemblyName>ERP.Infrastructure</AssemblyName>
-        <RootNamespace>ERP.Infrastructure</RootNamespace>
-        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="EPPlus" Version="8.2.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.20" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
+    <PackageReference
+      Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore"
+      Version="8.0.20"
+    />
+    <PackageReference Include="QuestPDF" Version="2025.7.4" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <PackageReference Include="EPPlus" Version="8.2.1" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.20" />
-        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
-        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.20" />
-        <PackageReference Include="QuestPDF" Version="2025.7.4" />
-    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ERP.Core\ERP.Core.csproj" />
+  </ItemGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\ERP.Core\ERP.Core.csproj" />
-    </ItemGroup>
+  <ItemGroup>
+    <Reference Include="EPPlus">
+      <HintPath>..\..\..\..\.nuget\packages\epplus\8.2.1\lib\net8.0\EPPlus.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 
-    <ItemGroup>
-      <Reference Include="EPPlus">
-        <HintPath>..\..\..\..\.nuget\packages\epplus\8.2.1\lib\net8.0\EPPlus.dll</HintPath>
-      </Reference>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Content Include="..\..\.dockerignore">
-        <Link>.dockerignore</Link>
-      </Content>
-    </ItemGroup>
-
+  <ItemGroup>
+    <Content Include="..\..\.dockerignore">
+      <Link>.dockerignore</Link>
+    </Content>
+  </ItemGroup>
 </Project>
