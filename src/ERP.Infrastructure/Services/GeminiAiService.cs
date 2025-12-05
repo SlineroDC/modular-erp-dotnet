@@ -14,14 +14,14 @@ public class GeminiAiService : IAiService
 
     private readonly Dictionary<string, string> _navigationMap = new()
     {
-        { "/Index", "Dashboard: Ver métricas generales." },
-        { "/Products", "Lista de Productos: Ver inventario." },
-        { "/CreateProduct", "Crear Producto." },
-        { "/Customers", "Clientes." },
-        { "/CreateCustomer", "Crear Cliente." },
-        { "/Sales", "Historial de Ventas." },
-        { "/CreateSale", "Nueva Venta (POS)." },
-        { "/Settings", "Configuración." }
+        { "/Index", "Dashboard: View general metrics." },
+        { "/Products", "Products list: View inventory." },
+        { "/CreateProduct", "Create product." },
+        { "/Customers", "Customers." },
+        { "/CreateCustomer", "Create customer." },
+        { "/Sales", "Sales history." },
+        { "/CreateSale", "New sale (POS)." },
+        { "/Settings", "Settings." },
     };
 
     public GeminiAiService(HttpClient httpClient, IConfiguration configuration)
@@ -34,18 +34,22 @@ public class GeminiAiService : IAiService
 
     public async Task<string> AskAssistantAsync(string userQuestion)
     {
-        // 1. Preparar el Prompt de Sistema (Contexto)
-        var navigationContext = string.Join("\n", _navigationMap.Select(x => $"- Ruta '{x.Key}': {x.Value}"));
-        var systemInstruction = $@"
-            Eres 'FirmezaBot', el asistente del ERP.
-            CONOCIMIENTO DEL SISTEMA:
+        // 1. Prepare system prompt (context)
+        var navigationContext = string.Join(
+            "\n",
+            _navigationMap.Select(x => $"- Route '{x.Key}': {x.Value}")
+        );
+        var systemInstruction =
+            $@"
+            You are 'FirmezaBot', the ERP assistant.
+            SYSTEM KNOWLEDGE:
             {navigationContext}
-            REGLAS:
-            - Responde en Español, brevemente.
-            - Si te piden ir a un lugar, responde con este formato HTML exacto: <a href='/Ruta' class='text-yellow-300 underline font-bold'>Nombre</a>.
+            RULES:
+            - Respond in English, briefly.
+            - If asked to navigate to a location, reply with this exact HTML format: <a href='/Route' class='text-yellow-300 underline font-bold'>Name</a>.
         ";
 
-        // 2. Crear el cuerpo de la petición (Formato específico de Google Gemini)
+        // 2. Create request body (Google Gemini specific format)
         var requestBody = new
         {
             contents = new[]
@@ -55,10 +59,10 @@ public class GeminiAiService : IAiService
                     role = "user",
                     parts = new[]
                     {
-                        new { text = $"{systemInstruction}\n\nUsuario: {userQuestion}\nAsistente:" }
-                    }
-                }
-            }
+                        new { text = $"{systemInstruction}\n\nUser: {userQuestion}\nAssistant:" },
+                    },
+                },
+            },
         };
 
         var jsonContent = JsonSerializer.Serialize(requestBody);
@@ -68,8 +72,8 @@ public class GeminiAiService : IAiService
         {
             var fullUrl = $"{_httpClient.BaseAddress}{_model}:generateContent?key={_apiKey}";
 
-            var response = await _httpClient.PostAsync(fullUrl, content); 
-            
+            var response = await _httpClient.PostAsync(fullUrl, content);
+
             if (!response.IsSuccessStatusCode)
             {
                 var error = await response.Content.ReadAsStringAsync();
@@ -79,12 +83,13 @@ public class GeminiAiService : IAiService
             var jsonString = await response.Content.ReadAsStringAsync();
             var result = JsonSerializer.Deserialize<GeminiResponse>(jsonString);
 
-            // Extraer el texto de la respuesta de Gemini
-            return result?.Candidates?.FirstOrDefault()?.Content?.Parts?.FirstOrDefault()?.Text ?? "No respuesta.";
+            // Extract the text from Gemini's response
+            return result?.Candidates?.FirstOrDefault()?.Content?.Parts?.FirstOrDefault()?.Text
+                ?? "No response.";
         }
         catch (Exception ex)
         {
-            return $"Error de IA: {ex.Message}";
+            return $"AI error: {ex.Message}";
         }
     }
 
@@ -94,16 +99,19 @@ public class GeminiAiService : IAiService
         [JsonPropertyName("candidates")]
         public List<Candidate>? Candidates { get; set; }
     }
+
     private class Candidate
     {
         [JsonPropertyName("content")]
         public Content? Content { get; set; }
     }
+
     private class Content
     {
         [JsonPropertyName("parts")]
         public List<Part>? Parts { get; set; }
     }
+
     private class Part
     {
         [JsonPropertyName("text")]

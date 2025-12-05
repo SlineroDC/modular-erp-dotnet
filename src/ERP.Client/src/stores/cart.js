@@ -7,17 +7,17 @@ export const useCartStore = defineStore('cart', () => {
   const items = ref([])
   const isOpen = ref(false)
 
-  // Totales calculados
+  // Computed totals
   const totalItems = computed(() => items.value.reduce((acc, item) => acc + item.quantity, 0))
   const totalPrice = computed(() => items.value.reduce((acc, item) => acc + (item.price * item.quantity), 0))
 
-  // Agregar (o sumar si existe)
+  // Add (or increase if exists)
   function addToCart(product, quantity = 1) {
     const existing = items.value.find(i => i.id === product.id)
     if (existing) {
       existing.quantity += quantity
     } else {
-      // Guardamos nombre, precio e imagen para mostrarlos en el carrito
+      // Save name, price and image to show them in the cart
       items.value.push({ 
         id: product.id,
         name: product.name,
@@ -28,13 +28,13 @@ export const useCartStore = defineStore('cart', () => {
     }
   }
 
-  // 🟢 NUEVO: Sumar unidad
+  // 🟢 NEW: Increase unit
   function increaseItem(id) {
     const item = items.value.find(i => i.id === id)
     if (item) item.quantity++
   }
 
-  // 🔴 NUEVO: Restar unidad (borra si llega a 0)
+  // 🔴 NEW: Decrease unit (removes if reaches 0)
   function decreaseItem(id) {
     const item = items.value.find(i => i.id === id)
     if (item) {
@@ -45,7 +45,7 @@ export const useCartStore = defineStore('cart', () => {
     }
   }
 
-  // Borrar ítem completo
+  // Remove entire item
   function removeFromCart(id) {
     items.value = items.value.filter(i => i.id !== id)
   }
@@ -54,7 +54,7 @@ export const useCartStore = defineStore('cart', () => {
     items.value = []
   }
 
-  // Checkout (Tu lógica existente)
+  // Checkout (Your existing logic)
   async function checkout() {
     const authStore = useAuthStore()
     if (!authStore.isAuthenticated) {

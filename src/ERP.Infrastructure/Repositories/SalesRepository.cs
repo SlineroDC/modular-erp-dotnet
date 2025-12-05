@@ -9,8 +9,8 @@ public class SalesRepository(ApplicationDbContext context) : ISalesRepository
 {
     public async Task<Sale?> GetByIdAsync(int id)
     {
-        return await context.Sales
-            .Include(s =>s.Customer)
+        return await context
+            .Sales.Include(s => s.Customer)
             .Include(s => s.SalesDetails)
                 .ThenInclude(d => d.Product)
             .FirstOrDefaultAsync(s => s.Id == id && s.IsActive);
@@ -18,13 +18,10 @@ public class SalesRepository(ApplicationDbContext context) : ISalesRepository
 
     public async Task<ResponsePage<Sale>> GetPaginatedAsync(int pageNumber, int pageSize)
     {
-        var totalCount = await context.Sales
-            .Where(s => s.IsActive)
-            .CountAsync();
+        var totalCount = await context.Sales.Where(s => s.IsActive).CountAsync();
 
-
-        var items = await context.Sales
-            .Include(s=>s.Customer)
+        var items = await context
+            .Sales.Include(s => s.Customer)
             .Where(s => s.IsActive)
             .OrderBy(c => c.Id)
             .Skip((pageNumber - 1) * pageSize)
@@ -36,7 +33,7 @@ public class SalesRepository(ApplicationDbContext context) : ISalesRepository
             Items = items,
             TotalCount = totalCount,
             PageNumber = pageNumber,
-            PageSize = pageSize
+            PageSize = pageSize,
         };
         return response;
     }

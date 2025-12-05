@@ -1,89 +1,127 @@
-# .NET ERP Platform
+# 🏗️ Firmeza ERP Platform
 
-A general ERP platform for business administration, built with .NET 8 (Razor, API, Blazor) and PostgreSQL. (Hypothetical project name: **Firmeza**).
+A comprehensive, modular ERP solution for the construction industry, built with **.NET 8**, **Vue.js**, and **PostgreSQL**, following **Clean Architecture** principles.
 
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![.NET](https://img.shields.io/badge/.NET-8.0-purple)
+![Vue.js](https://img.shields.io/badge/Vue.js-3.0-green)
 ![Docker](https://img.shields.io/badge/Docker-Ready-blue)
 
-## 📖 About This Project
+## 📖 Overview
 
-This project is an administrative application (**S1**) built with **ASP.NET Core Razor Pages**. Its main goal is to manage and update a business's products, customers, and sales from a modern, responsive panel.
+**Firmeza** is an administrative and commercial ecosystem designed to manage products, customers, and sales efficiently. It consists of three integrated modules:
 
-This is the first module of a microservice-oriented architecture that includes:
-* **S1:** Admin Panel (Razor Pages) - *Completed*
-* **S2:** Central REST API (ASP.NET Core) - *Planned*
-* **S3:** Client Portal (Blazor) - *Planned*
-* **S4:** Unit Tests (xUnit) - *Completed*
-* **S5:** Deployment (Docker) - *Completed*
+1.  **ERP.Admin (Backoffice):** A server-side rendered web application (Razor Pages) for administrators to manage inventory, users, and view business metrics.
+2.  **ERP.Api (Backend Core):** A robust RESTful API that serves as the central logic hub, handling authentication (JWT), business rules, and data persistence.
+3.  **ERP.Client (Storefront):** A modern SPA (Single Page Application) built with Vue 3, allowing customers to browse the catalog, manage their cart, and place orders.
 
 ## ✨ Key Features
 
-* **Product Management:** Full CRUD, Soft Delete, Pagination, and **Bulk Import from Excel** (EPPlus).
-* **Customer Management:** CRUD with duplicate validation and soft delete.
-* **Point of Sale (POS):** Interactive shopping cart to register sales in real-time.
-* **Invoicing:** Automatic **PDF Receipt Generation** (QuestPDF).
-* **AI Assistant:** Integrated Chat Widget powered by **Google Gemini** (or Ollama) to help users navigate the system.
-* **Support System:** Integrated email contact form (SMTP).
-* **UI/UX:** Modern interface built with **Tailwind CSS**, fully responsive, with **Dark Mode** support.
+### 🏢 Admin Module (S1)
+* **Dashboard:** Real-time metrics for products, customers, and sales.
+* **Product Management:** Full CRUD with soft delete and **Bulk Import via Excel**.
+* **Customer Management:** Administration of client data with duplicate validation.
+* **Reporting:** Automatic **PDF Receipt Generation** and sales history.
+* **AI Assistant:** Integrated Chat Widget (powered by Google Gemini) for system navigation and support.
+* **Support System:** Email-based support ticket system.
+
+### 🌐 API Module (S2)
+* **Security:** JWT (JSON Web Token) Authentication & Authorization.
+* **Documentation:** Full API documentation via **Swagger UI**.
+* **Architecture:** Hexagonal/N-Layer architecture separating Domain, Infrastructure, and Presentation.
+* **Services:** Centralized services for Email (SMTP), PDF (QuestPDF), and AI.
+
+### 🛍️ Client Module (S4)
+* **Storefront:** Responsive catalog with "Liquid Glass" UI design.
+* **Shopping Cart:** Real-time cart management using **Pinia** state store.
+* **User Experience:** Dark/Light mode toggle, animated interactions, and seamless checkout.
+* **Customer Portal:** Profile management and order history.
 
 ## 🛠️ Tech Stack
 
-* **Framework:** .NET 8 (ASP.NET Core Razor Pages)
-* **Database:** PostgreSQL (Entity Framework Core)
-* **Auth:** ASP.NET Core Identity
-* **Frontend:** Tailwind CSS, Vanilla JS
-* **Libraries:** EPPlus (Excel), QuestPDF (PDF)
-* **Testing:** xUnit
-* **Containerization:** Docker & Docker Compose
+| Layer | Technology |
+| :--- | :--- |
+| **Backend** | .NET 8, ASP.NET Core Web API, Razor Pages |
+| **Frontend** | Vue.js 3, Vite, Tailwind CSS v4 |
+| **Database** | PostgreSQL, Entity Framework Core |
+| **Auth** | ASP.NET Core Identity, JWT Bearer |
+| **Tools** | Docker, Docker Compose, Swagger, xUnit |
+| **Integrations** | Google Gemini (AI), EPPlus (Excel), QuestPDF (PDF) |
 
 ## 🚀 How to Run (Docker) - Recommended
 
-The easiest way to run the application is using Docker Compose, which sets up the database and app automatically.
+Run the entire platform (Database + Admin + API + Client) with a single command.
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/tu-usuario/dotnet-erp-platform.git](https://github.com/tu-usuario/dotnet-erp-platform.git)
+    git clone [https://github.com/tu-usuario/modular-erp-dotnet.git](https://github.com/tu-usuario/modular-erp-dotnet.git)
     cd modular-erp-dotnet
     ```
 
-2.  **Run with Docker Compose:**
+2.  **Set up Environment Variables:**
+    Ensure your `docker-compose.yml` or `.env` has valid API Keys for:
+    * `AiSettings__ApiKey` (Google Gemini)
+    * `EmailSettings__Password` (Gmail App Password)
+
+3.  **Launch:**
     ```bash
     docker compose up --build
     ```
 
-3.  **Access the App:**
-    Open your browser at `http://localhost:8080`.
-
-> **Note:** The database is created and migrated automatically on startup. A default admin user is also created.
+4.  **Access the Modules:**
+    * **Storefront (Client):** [http://localhost:3000](http://localhost:3000)
+    * **Backoffice (Admin):** [http://localhost:8080](http://localhost:8080)
+    * **API Docs (Swagger):** [http://localhost:5000/swagger](http://localhost:5000/swagger)
 
 ## 💻 How to Run (Local Development)
 
-If you want to run it without Docker (e.g., in Rider or Visual Studio):
+### Prerequisites
+* .NET 8 SDK
+* Node.js (v18+)
+* PostgreSQL (Running on default port or Docker)
 
-1.  **Prerequisites:** .NET 8 SDK, PostgreSQL, Node.js (for Tailwind).
-2.  **Configuration:** Update `appsettings.json` in `src/ERP.Admin` with your local Postgres credentials and API Keys.
-3.  **Build Frontend:**
-    ```bash
-    npm install
-    npm run build
-    ```
-4.  **Run Backend:**
-    ```bash
-    dotnet run --project src/ERP.Admin
-    ```
+### 1. Database & Migrations
+Update `appsettings.json` in `src/ERP.Admin` and `src/ERP.Api` with your local connection string.
+```bash
+dotnet ef database update -p src/ERP.Infrastructure -s src/ERP.Admin
+```
+### 2. Start Backend (API & Admin)
+Run both projects simultaneously using your IDE (Rider/VS) or separate terminals:
+```bash
+# Terminal 1 (API)
+dotnet run --project src/ERP.Api
 
-## 🔑 Default Credentials
+# Terminal 2 (Admin)
+dotnet run --project src/ERP.Admin
+```
 
-Use these credentials to log in to the Admin Panel:
+### 3.Start Frontend (Client)
+```bash
+cd src/ERP.Client
+npm install
+npm run dev
+```
+### 🔑 Default Credentials
+Administrator (Backoffice):
+- Email: admin@firmeza.com
+- Password: Admin123!
 
-| Role | Email | Password |
-| :--- | :--- | :--- |
-| **Administrator** | `admin@firmeza.com` | `Admin123!` |
+Customer (Storefront):
+- Register a new account via the Client App or use the API to create one.
 
-## 🧪 Testing
-
-To run the unit tests for the Domain layer:
+### 🧪 Testing
+Run unit tests for the Core Domain logic, Api and client:
+```bash
+# Domain logic test
+dotnet test tests/ERP.Core.Tests
+```
 
 ```bash
-dotnet test tests/ERP.Core.Tests
+# Api test
+dotnet test tests/ERP.Api.Tests
+```
+
+```bash
+# Client logic test
+npm run test src/ERP.Client
+```

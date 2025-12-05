@@ -1,9 +1,24 @@
 <script setup>
 import MainLayout from '../layouts/MainLayout.vue';
 import { useAuthStore } from '../stores/auth';
+import api from '../api/axios';
+import { onMounted } from 'vue';
 
 const authStore = useAuthStore();
 const user = authStore.user;
+
+const form = ref({
+  name: '',
+  lastName: '',
+  phone: '',
+  address: '',
+  currentPassword: '',
+  newPassword: ''
+});
+
+onMounted(() => {
+  
+});
 </script>
 
 <template>

@@ -26,15 +26,13 @@ public class SmtpEmailService(IConfiguration configuration) : IEmailService
             || string.IsNullOrEmpty(adminEmail)
         )
         {
-            throw new InvalidOperationException(
-                "Faltan configuraciones de correo en appsettings.json"
-            );
+            throw new InvalidOperationException("Missing email configurations in appsettings.json");
         }
 
         if (!int.TryParse(portString, out int port))
         {
             throw new InvalidOperationException(
-                "El puerto de correo en appsettings.json no es un número válido."
+                "The mail port in appsettings.json is not a valid number."
             );
         }
 
@@ -70,7 +68,7 @@ public class SmtpEmailService(IConfiguration configuration) : IEmailService
         await SendEmailInternalAsync(toEmail, subject, message, attachmentFile, fileName);
     }
 
-    // Método privado para no repetir código
+    // Private helper method to avoid repeating code
     private async Task SendEmailInternalAsync(
         string toEmail,
         string subject,
@@ -90,9 +88,7 @@ public class SmtpEmailService(IConfiguration configuration) : IEmailService
             || string.IsNullOrEmpty(password)
         )
         {
-            throw new InvalidOperationException(
-                "Faltan configuraciones de correo en appsettings.json"
-            );
+            throw new InvalidOperationException("Missing email configurations in appsettings.json");
         }
 
         using var client = new SmtpClient(smtpServer, port);

@@ -1,36 +1,70 @@
 ﻿services:
+  # 1. BASE DE DATOS
   db:
     image: postgres:15-alpine
     container_name: erp_db_container
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: Qwe.123*
+      POSTGRES_PASSWORD: mysecretpassword
       POSTGRES_DB: erp_db
     ports:
-      - "5445:5432" # P
+      - "5445:5432"
     volumes:
-      - postgres_data_docker:/var/lib/postgresql/data
-
+      - postgres_data_full:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 5s
       timeout: 5s
       retries: 5
 
-  web:
+  # 2. ADMIN PANEL (Razor) - Puerto 8080
+  admin:
     build:
       context: .
       dockerfile: src/ERP.Admin/Dockerfile
-    container_name: erp_web_container
+    container_name: erp_admin_container
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://+:8080
-      - ConnectionStrings__DefaultConnection=Host=db;Database=erp_db;Username=postgres;Password=Qwe.123*
+      - ConnectionStrings__DefaultConnection=Host=db;Database=erp_db;Username=postgres;Password=mysecretpassword
+      # API Keys para la IA y Correo (Pone tus claves reales aquí o en .env)
+      - AiSettings__ApiKey=TU_CLAVE_GEMINI
+      - EmailSettings__Password=TU_CLAVE_GMAIL
     ports:
       - "8080:8080"
     depends_on:
       db:
         condition: service_healthy
 
+  # 3. API BACKEND - Puerto 5000
+  api:
+    build:
+      context: .
+      dockerfile: src/ERP.Api/Dockerfile
+    container_name: erp_api_container
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:8080
+      - ConnectionStrings__DefaultConnection=Host=db;Database=erp_db;Username=postgres;Password=mysecretpassword
+      - EmailSettings__Password=TU_CLAVE_GMAIL
+      # Configuración CORS para aceptar al Cliente
+      - AllowedHosts=*
+    ports:
+      - "5000:8080" # Mapeamos interno 8080 -> externo 5000
+    depends_on:
+      db:
+        condition: service_healthy
+
+  # 4. CLIENTE VUE - Puerto 3000
+  client:
+    build:
+      context: src/ERP.Client # Contexto específico para Vue
+      dockerfile: Dockerfile
+    container_name: erp_client_container
+    ports:
+      - "3000:80"
+    depends_on:
+      - api
+
 volumes:
-  postgres_data_docker:
+  postgres_data_full:

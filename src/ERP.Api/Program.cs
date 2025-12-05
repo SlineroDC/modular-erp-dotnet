@@ -83,7 +83,7 @@ builder.Services.AddSwaggerGen(c =>
         }
     );
 
-    // Requisito de seguridad (Aquí estaba el error)
+    // Security requirement (This is where the issue was)
     c.AddSecurityRequirement(
         new OpenApiSecurityRequirement
         {
@@ -96,7 +96,7 @@ builder.Services.AddSwaggerGen(c =>
                         Id = "Bearer",
                     },
                 },
-                Array.Empty<string>() // Usamos Array.Empty en lugar de new string[] {} para ser más claros
+                Array.Empty<string>() // We use Array.Empty instead of new string[] {} for clarity
             },
         }
     );
