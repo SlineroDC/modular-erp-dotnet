@@ -14,7 +14,6 @@ export const useCartStore = defineStore('cart', () => {
     } else {
       items.value.push({ ...product, quantity })
     }
-    isOpen.value = true
   }
 
   function removeFromCart(id) {

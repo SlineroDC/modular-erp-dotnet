@@ -1,58 +1,71 @@
 <script setup>
-import { ref, onMounted } from 'vue'; 
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 import { useCartStore } from '../stores/cart';
+import { useAuthStore } from '../stores/auth';
+import { useTheme } from '../composables/useTheme'; 
+
+
+import CartSidebar from '../components/CartSideBar.vue';
 import SupportModal from '../components/SupportModal.vue';
 
+
 const cartStore = useCartStore();
-const isDark = ref(false);
+const authStore = useAuthStore();
+const router = useRouter();
+const { isDark, toggleTheme } = useTheme(); 
+
 const isSupportOpen = ref(false);
 
-function toggleTheme() {
-  isDark.value = !isDark.value;
-  updateThemeClass();
+function handleLogout() {
+  authStore.logout();
+  router.push('/login');
 }
-
-function updateThemeClass() {
-  if (isDark.value) {
-    document.documentElement.classList.add('dark');
-  } else {
-    document.documentElement.classList.remove('dark');
-  }
-}
-
-onMounted(() => {
-  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    isDark.value = true;
-    updateThemeClass();
-  }
-});
 </script>
 
 <template>
   <div class="min-h-screen bg-gray-50 dark:bg-[#0a0a0a] text-gray-900 dark:text-gray-100 flex flex-col relative overflow-x-hidden transition-colors duration-500">
     
     <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-      <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-constructor-blue/10 dark:bg-constructor-blue/20 blur-[120px]"></div>
-      <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-safety-orange/10 dark:bg-safety-orange/10 blur-[120px]"></div>
+      <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-constructor-blue/10 dark:bg-constructor-blue/20 blur-[120px] transition-colors duration-500"></div>
+      <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-safety-orange/10 dark:bg-safety-orange/10 blur-[120px] transition-colors duration-500"></div>
     </div>
 
     <header class="sticky top-0 z-40 glass glass-dark px-6 py-4 flex justify-between items-center transition-all duration-300">
-      <div class="flex items-center gap-3">
-        <img src="/svg/logo1.png" class="h-8 w-auto" alt="Logo" /> 
-        <span class="font-bold text-xl tracking-tight text-constructor-blue dark:text-white">Firmeza</span>
-      </div>
       
-      <nav class="flex items-center gap-6 font-medium text-sm">
-        <router-link to="/" class="hover:text-safety-orange transition-colors">Catalog</router-link>
-        <router-link to="/profile" class="hover:text-safety-orange transition-colors">Profile</router-link>
+      <router-link to="/" class="flex items-center gap-3 group">
+        <img src="/svg/logo1.png" class="h-8 w-auto group-hover:scale-110 transition-transform" alt="Logo" /> 
+        <span class="font-bold text-xl tracking-tight text-constructor-blue dark:text-white">Firmeza</span>
+      </router-link>
+      
+      <nav class="flex items-center gap-4 font-medium text-sm">
         
-        <button @click="toggleTheme" class="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
-          <span class="material-symbols-outlined text-xl">{{ isDark ? 'light_mode' : 'dark_mode' }}</span>
+        <router-link to="/" class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/10 transition-colors" title="Catalog">
+          <span class="material-symbols-outlined text-xl text-gray-600 dark:text-gray-300">storefront</span>
+          <span class="hidden sm:block">Catalog</span>
+        </router-link>
+
+        <router-link to="/profile" class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/10 transition-colors" title="Profile">
+          <span class="material-symbols-outlined text-xl text-gray-600 dark:text-gray-300">person</span>
+          <span class="hidden sm:block">Profile</span>
+        </router-link>
+        
+        <div class="h-6 w-px bg-gray-300 dark:bg-gray-700 mx-1"></div>
+
+        <button @click="toggleTheme" class="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors" title="Toggle Theme">
+          <span v-if="isDark" class="material-symbols-outlined text-xl">light_mode</span>
+          <span v-else class="material-symbols-outlined text-xl">dark_mode</span>
         </button>
 
-        <button @click="cartStore.isOpen = !cartStore.isOpen" class="relative p-2 group">
-          <span class="material-symbols-outlined group-hover:text-constructor-blue dark:group-hover:text-safety-orange transition-colors">shopping_cart</span>
-          <span v-if="cartStore.totalItems > 0" class="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-safety-orange text-xs flex items-center justify-center text-white font-bold shadow-sm">
+        <button @click="handleLogout" class="p-2 rounded-full hover:bg-red-50 text-gray-600 hover:text-red-500 dark:text-gray-300 dark:hover:bg-red-900/30 transition-colors" title="Logout">
+           <span class="material-symbols-outlined text-xl">logout</span>
+        </button>
+
+        <button @click="cartStore.isOpen = !cartStore.isOpen" class="relative p-2 ml-2 group">
+          <div class="p-2 rounded-full bg-constructor-blue/10 group-hover:bg-constructor-blue group-hover:text-white dark:bg-white/10 transition-colors text-constructor-blue dark:text-white">
+            <span class="material-symbols-outlined text-xl">shopping_cart</span>
+          </div>
+          <span v-if="cartStore.totalItems > 0" class="absolute top-0 right-0 h-5 w-5 rounded-full bg-safety-orange text-[10px] flex items-center justify-center text-white font-bold shadow-sm border-2 border-white dark:border-[#0a0a0a] animate-bounce">
             {{ cartStore.totalItems }}
           </span>
         </button>
@@ -79,10 +92,6 @@ onMounted(() => {
       <span class="material-symbols-outlined text-3xl">support_agent</span>
     </button>
 
-    <SupportModal 
-      :isOpen="isSupportOpen" 
-      @close="isSupportOpen = false" 
-    />
-
-  </div>
+    <SupportModal :isOpen="isSupportOpen" @close="isSupportOpen = false" />
+    <CartSidebar /> </div>
 </template>

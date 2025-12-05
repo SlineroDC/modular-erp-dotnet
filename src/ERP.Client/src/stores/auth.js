@@ -6,7 +6,19 @@ import router from '../router';
 export const useAuthStore = defineStore('auth', () => {
   
     const token = ref(localStorage.getItem('jwt_token') || null);
-    const user = ref(JSON.parse(localStorage.getItem('user_data')) || null);
+    const storedUser = localStorage.getItem('user_data');
+
+    let parsedUser = null;
+    try {
+        if (storedUser && storedUser !== "undefined"){
+            parsedUser = JSON.parse(storedUser);
+        }
+    } catch (e) {
+        console.error("Error read to User in storage",e);
+        localStorage.removeItem('user_data');
+    }
+
+    const user = ref(parsedUser);
 
     const isAuthenticated = computed(() => !!token.value);
 
