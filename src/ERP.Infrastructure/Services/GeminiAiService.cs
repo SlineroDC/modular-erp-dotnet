@@ -93,7 +93,6 @@ public class GeminiAiService : IAiService
         }
     }
 
-    // Clases para deserializar la respuesta de Google
     private class GeminiResponse
     {
         [JsonPropertyName("candidates")]
