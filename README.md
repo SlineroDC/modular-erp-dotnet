@@ -106,8 +106,15 @@ Administrator (Backoffice):
 - Email: admin@firmeza.com
 - Password: Admin123!
 
+Customer (Check Store):
+- Email: cliente@test.com
+- Password: Cliente123!
+
 Customer (Storefront):
-- Register a new account via the Client App or use the API to create one.
+- Register a new account via the Client App or use the API to create one for test all funtions.
+
+### 🌱 Seed data Test Excel in Admin
+Chek the file in the folder seed
 
 ### 🧪 Testing
 Run unit tests for the Core Domain logic, Api and client:

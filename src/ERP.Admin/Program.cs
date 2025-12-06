@@ -87,6 +87,111 @@ using (var scope = app.Services.CreateScope())
                         + string.Join(", ", result.Errors.Select(e => e.Description))
                 );
         }
+
+        // 3. Seed Test Client User (to be able to login and test the buying process)
+        var clientEmail = "cliente@test.com";
+        var clientUser = await userManager.FindByEmailAsync(clientEmail);
+
+        if (clientUser == null)
+        {
+            // A. Crear Login (Identity)
+            clientUser = new IdentityUser
+            {
+                UserName = clientEmail,
+                Email = clientEmail,
+                EmailConfirmed = true,
+            };
+            await userManager.CreateAsync(clientUser, "Cliente123!");
+            Console.WriteLine("✅ Test Client user created: cliente@test.com / Cliente123!");
+
+            // B. Crear Datos de Negocio (Tabla Customers)
+            var customerRepo = services.GetRequiredService<ICustomerRepository>();
+
+            var testCustomer = new ERP.Core.Entities.Customer
+            {
+                Name = "Usuario",
+                LastName = "Prueba",
+                Email = clientEmail,
+                IdDocument = "999999999",
+                Phone = "3000000000",
+                Address = "Calle Falsa 123",
+                IsActive = true,
+            };
+
+            await customerRepo.AddAsync(testCustomer);
+        }
+
+        // 4. Seed Dummy Customers (Para que la tabla de Admin no esté vacía)
+        if (!context.Customers.Any(c => c.Email != clientEmail)) // Si solo está el de prueba o ninguno
+        {
+            var dummyCustomers = new List<ERP.Core.Entities.Customer>
+            {
+                new()
+                {
+                    Name = "Juan",
+                    LastName = "Perez",
+                    Email = "juan.p@test.com",
+                    IdDocument = "1001",
+                    Phone = "3001234567",
+                    Address = "Calle 1 #2-3",
+                    IsActive = true,
+                },
+                new()
+                {
+                    Name = "Maria",
+                    LastName = "Gomez",
+                    Email = "maria.g@test.com",
+                    IdDocument = "1002",
+                    Phone = "3101234567",
+                    Address = "Av Siempre Viva 123",
+                    IsActive = true,
+                },
+                new()
+                {
+                    Name = "Constructora",
+                    LastName = "El Bloque SAS",
+                    Email = "contacto@bloque.com",
+                    IdDocument = "900123456",
+                    Phone = "6012345678",
+                    Address = "Zona Industrial Lote 4",
+                    IsActive = true,
+                },
+                new()
+                {
+                    Name = "Luis",
+                    LastName = "Diaz",
+                    Email = "lucho@test.com",
+                    IdDocument = "1005",
+                    Phone = "3151112233",
+                    Address = "Calle 10 #20-30",
+                    IsActive = true,
+                },
+                new()
+                {
+                    Name = "Sofia",
+                    LastName = "Vergara",
+                    Email = "sofia@test.com",
+                    IdDocument = "1006",
+                    Phone = "3164445566",
+                    Address = "Barrio Alto #101",
+                    IsActive = true,
+                },
+                new()
+                {
+                    Name = "Ferreteria",
+                    LastName = "La Tuerca",
+                    Email = "ventas@latuerca.com",
+                    IdDocument = "900987654",
+                    Phone = "6025556677",
+                    Address = "Centro Comercial Local 1",
+                    IsActive = true,
+                },
+            };
+
+            context.Customers.AddRange(dummyCustomers);
+            context.SaveChanges();
+            Console.WriteLine($"✅ Seeded {dummyCustomers.Count} dummy customers for testing.");
+        }
     }
     catch (Exception ex)
     {
@@ -99,7 +204,7 @@ using (var scope = app.Services.CreateScope())
 // Show detailed error pages only when in Development.
 if (app.Environment.IsDevelopment())
 {
-    app.UseMigrationsEndPoint(); // Helps with applying EF migrations.
+    app.UseMigrationsEndPoint();
 }
 else
 {
