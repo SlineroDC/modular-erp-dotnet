@@ -6,19 +6,21 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using NSubstitute;
 using Xunit;
 
+namespace ERP.Core.Tests.Admin;
+
 public class CreateProductTests
 {
     [Fact]
     public async Task OnPostAsync_WhenModelStateIsValid_ShouldSaveAndRedirect()
     {
-        // 1. ARRANGE (Preparar)
-        // Creamos un repositorio falso
+        // 1. ARRANGE 
+        //We create a fake repository
         var mockRepo = Substitute.For<IProductRepository>();
 
-        // Creamos la página inyectándole el falso
-        var pageModel = new CreateProductModel(mockRepo);
+        //We create the page by injecting the fake one
+        var pageModel = new Create(mockRepo);
 
-        // Simulamos datos válidos en el formulario
+        //We simulate valid data in the form
         pageModel.Product = new Product
         {
             Name = "Test Product",
@@ -26,15 +28,15 @@ public class CreateProductTests
             Stock = 5,
         };
 
-        // 2. ACT (Actuar)
+        // 2. ACT 
         var result = await pageModel.OnPostAsync();
 
-        // 3. ASSERT (Verificar)
-        // A. Verificamos que el resultado sea una redirección a "./Products"
+        // 3. ASSERT 
+        // A. We verify that the result is a redirect to "./Index" 
         var redirectResult = Assert.IsType<RedirectToPageResult>(result);
-        Assert.Equal("./Products", redirectResult.PageName);
+        Assert.Equal("./Index", redirectResult.PageName);
 
-        // B. ¡Lo más importante! Verificamos que el método AddAsync FUE LLAMADO 1 vez
+        // B. We verified that the AddAsync method was called 1 time
         await mockRepo.Received(1).AddAsync(Arg.Any<Product>());
     }
 
@@ -43,19 +45,19 @@ public class CreateProductTests
     {
         // 1. ARRANGE
         var mockRepo = Substitute.For<IProductRepository>();
-        var pageModel = new CreateProductModel(mockRepo);
+        var pageModel = new Create(mockRepo);
 
-        // Simulamos un error de validación (ej. Nombre vacío)
+        //We simulate a validation error (e.g. empty name)
         pageModel.ModelState.AddModelError("Product.Name", "Required");
 
         // 2. ACT
         var result = await pageModel.OnPostAsync();
 
         // 3. ASSERT
-        // A. Debe retornar la misma página (PageResult) para mostrar errores
+        // A. You must return the same page (PageResult) to display errors
         Assert.IsType<PageResult>(result);
 
-        // B. El método AddAsync NUNCA debió llamarse
+        // B. The AddAsync method should NEVER have been called
         await mockRepo.DidNotReceive().AddAsync(Arg.Any<Product>());
     }
 }

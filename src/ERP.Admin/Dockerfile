@@ -15,21 +15,31 @@ RUN apt-get update && \
 
 WORKDIR /src
 
-# Copiar proyectos y restaurar (Capa de caché de .NET)
+# Copiar proyectos y restaurar
 COPY ["src/ERP.Admin/ERP.Admin.csproj", "src/ERP.Admin/"]
 COPY ["src/ERP.Core/ERP.Core.csproj", "src/ERP.Core/"]
 COPY ["src/ERP.Infrastructure/ERP.Infrastructure.csproj", "src/ERP.Infrastructure/"]
-RUN dotnet restore "src/ERP.Admin/ERP.Admin.csproj"
-RUN dotnet restore "src/ERP.Infrastructure/ERP.Infrastructure.csproj"
 
+RUN dotnet restore "src/ERP.Infrastructure/ERP.Infrastructure.csproj"
+RUN dotnet restore "src/ERP.Admin/ERP.Admin.csproj"
+
+# Copiar todo el código
 COPY . .
 
-RUN npm install
-RUN npm run build
+# --- SOLUCIÓN NUCLEAR: Tailwind Standalone ---
+# 1. Descargar el ejecutable oficial de Tailwind para Linux (Versión 3.4.1 estable)
+RUN curl -sLO https://github.com/tailwindlabs/tailwindcss/releases/download/v3.4.1/tailwindcss-linux-x64
 
-# Ahora sí entramos a la carpeta del proyecto para compilar .NET
+# 2. Darle permisos de ejecución
+RUN chmod +x tailwindcss-linux-x64
+
+# 3. Ejecutarlo directamente (Sin npm, sin npx, sin node_modules)
+RUN ./tailwindcss-linux-x64 -i ./src/ERP.Admin/wwwroot/css/input.css -o ./src/ERP.Admin/wwwroot/css/site.css
+# ---------------------------------------------
+# -------------------------------------
+
+# Compilar .NET
 WORKDIR "/src/src/ERP.Admin"
-RUN dotnet restore "ERP.Admin.csproj"
 RUN dotnet build "ERP.Admin.csproj" -c Release -o /app/build
 
 # 3. PUBLICAR

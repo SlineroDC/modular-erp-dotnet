@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using ERP.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +33,11 @@ builder
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<ISalesRepository, SalesRepository>();
+
+// Service Injection
+builder.Services.AddScoped<IEmailService, SmtpEmailService>();
+builder.Services.AddScoped<IPdfService, PdfService>();
+builder.Services.AddHttpClient<IAiService, GeminiAiService>();
 
 // Authentication & JWT Configuration
 // Configure JWT Bearer authentication scheme
@@ -105,29 +111,31 @@ builder.Services.AddSwaggerGen(c =>
 // Register AutoMapper
 builder.Services.AddAutoMapper(typeof(Program));
 
-//Register services CORS
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowVueApp", policy =>
+    //Register services CORS
+    builder.Services.AddCors(options =>
     {
-        policy.WithOrigins("http://localhost:5173")
-            .AllowAnyHeader()
-            .AllowAnyMethod();
+        options.AddPolicy(
+            "AllowVueApp",
+            policy =>
+            {
+                policy.WithOrigins("http://localhost:5173", "http://localhost:3000")
+                      .AllowAnyHeader()
+                      .AllowAnyMethod();
+            }
+        );
     });
-});
-
 
 // APPLICATION PIPELINE
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Firmeza API v1");
+    c.RoutePrefix = "swagger"; 
+});
 app.UseHttpsRedirection();
 
 // Enable Authentication and Authorization middleware

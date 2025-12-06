@@ -43,3 +43,8 @@ project.fragment.lock.json
 .DS_Store
 Thumbs.db
 node_modules
+
+## Secrets
+.env
+.env.*
+!src/ERP.Client/.env

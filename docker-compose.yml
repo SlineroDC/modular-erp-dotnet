@@ -1,23 +1,23 @@
 ﻿services:
-  # 1. BASE DE DATOS
+  # 1. Database
   db:
     image: postgres:15-alpine
     container_name: erp_db_container
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: mysecretpassword
-      POSTGRES_DB: erp_db
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     ports:
       - "5445:5432"
     volumes:
       - postgres_data_full:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER}"]
       interval: 5s
       timeout: 5s
       retries: 5
 
-  # 2. ADMIN PANEL (Razor) - Puerto 8080
+  # 2. ADMIN PANEL Razor
   admin:
     build:
       context: .
@@ -26,17 +26,16 @@
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
       - ASPNETCORE_URLS=http://+:8080
-      - ConnectionStrings__DefaultConnection=Host=db;Database=erp_db;Username=postgres;Password=mysecretpassword
-      # API Keys para la IA y Correo (Pone tus claves reales aquí o en .env)
-      - AiSettings__ApiKey=TU_CLAVE_GEMINI
-      - EmailSettings__Password=TU_CLAVE_GMAIL
+      - ConnectionStrings__DefaultConnection=Host=db;Database=${DB_NAME};Username=${DB_USER};Password=${DB_PASSWORD}
+      - AiSettings__ApiKey=${AI_API-KEY}
+      - EmailSettings__Password=${MAIL_PASSWORD}
     ports:
-      - "8080:8080"
+      - "${PORT_WEB}:${PORT_WEB}"
     depends_on:
       db:
         condition: service_healthy
 
-  # 3. API BACKEND - Puerto 5000
+  # 3. API BACKEND 
   api:
     build:
       context: .
@@ -44,21 +43,20 @@
     container_name: erp_api_container
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
-      - ASPNETCORE_URLS=http://+:8080
-      - ConnectionStrings__DefaultConnection=Host=db;Database=erp_db;Username=postgres;Password=mysecretpassword
+      - ASPNETCORE_URLS=http://+:${PORT_WEB}
+      - ConnectionStrings__DefaultConnection=Host=db;Database=${DB_NAME};Username=${DB_USER};Password=${DB_PASSWORD}
       - EmailSettings__Password=TU_CLAVE_GMAIL
-      # Configuración CORS para aceptar al Cliente
       - AllowedHosts=*
     ports:
-      - "5000:8080" # Mapeamos interno 8080 -> externo 5000
+      - "5000:8080" 
     depends_on:
       db:
         condition: service_healthy
 
-  # 4. CLIENTE VUE - Puerto 3000
+  # 4. CLIENT VUE 
   client:
     build:
-      context: src/ERP.Client # Contexto específico para Vue
+      context: src/ERP.Client 
       dockerfile: Dockerfile
     container_name: erp_client_container
     ports:

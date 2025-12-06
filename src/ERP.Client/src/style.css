@@ -1,41 +1,31 @@
 @import "tailwindcss";
 
-
 @theme {
-    --color-constructor-blue: #003366;
-    --color-safety-orange: #FF6600;
-    --color-cement-gray: #607d8b;
+  --color-constructor-blue: #003366;
+  --color-safety-orange: #FF6600;
+  --color-cement-gray: #607d8b;
 }
+
+@custom-variant dark (&:where(.dark, .dark *));
 
 html {
   scroll-behavior: smooth;
 }
 
-/* Class for Glassmorphism (Liquid Glass) */
 @layer utilities {
-  .glass {
-    @apply bg-white/10 backdrop-blur-lg border-t border-white/20 shadow-lg;
-  }
-  .glass-dark {
-    @apply dark:bg-gray-900/40 dark:border-gray-700/30;
-  }
   
- 
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
+  .glass-card {
+    @apply backdrop-blur-xl border shadow-2xl transition-colors duration-300;
+    
+    @apply bg-white/90 border-gray-200 text-gray-900;
+
+    @apply dark:bg-gray-900/60 dark:border-white/10 dark:text-white;
   }
-  .no-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
+
+  /* Scrollbar invisible */
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 }
 
-/* Transitions*/
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s ease;
-}
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
+.fade-enter-active, .fade-leave-active { transition: opacity 0.3s ease; }
+.fade-enter-from, .fade-leave-to { opacity: 0; }
