@@ -17,7 +17,7 @@ const form = ref({
   password: '',
   name: '',
   lastName: '',
-  document: '',
+  idDocument: '',
   phone: '',
   address: ''
 });
@@ -72,7 +72,7 @@ async function handleRegister() {
           </div>
           <div class="space-y-2">
             <label class="text-sm font-medium text-gray-700 dark:text-gray-200">Document ID</label>
-            <input v-model="form.document" type="text" required :class="inputClass" placeholder="123456789" />
+            <input v-model="form.idDocument" type="text" required :class="inputClass" placeholder="123456789" />
           </div>
           <div class="space-y-2">
             <label class="text-sm font-medium text-gray-700 dark:text-gray-200">Phone</label>

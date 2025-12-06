@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using ERP.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +33,11 @@ builder
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<ISalesRepository, SalesRepository>();
+
+// Service Injection
+builder.Services.AddScoped<IEmailService, SmtpEmailService>();
+builder.Services.AddScoped<IPdfService, PdfService>();
+builder.Services.AddHttpClient<IAiService, GeminiAiService>();
 
 // Authentication & JWT Configuration
 // Configure JWT Bearer authentication scheme
@@ -105,17 +111,19 @@ builder.Services.AddSwaggerGen(c =>
 // Register AutoMapper
 builder.Services.AddAutoMapper(typeof(Program));
 
-//Register services CORS
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(
-        "AllowVueApp",
-        policy =>
-        {
-            policy.WithOrigins("http://localhost:5173").AllowAnyHeader().AllowAnyMethod();
-        }
-    );
-});
+    //Register services CORS
+    builder.Services.AddCors(options =>
+    {
+        options.AddPolicy(
+            "AllowVueApp",
+            policy =>
+            {
+                policy.WithOrigins("http://localhost:5173", "http://localhost:3000")
+                      .AllowAnyHeader()
+                      .AllowAnyMethod();
+            }
+        );
+    });
 
 // APPLICATION PIPELINE
 
